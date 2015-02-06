@@ -7,23 +7,19 @@
 //
 
 #import "SPXViewController.h"
+#import "SPXDataSources.h"
 
 @interface SPXViewController ()
-
+@property (nonatomic, strong) SPXDataCoordinator *coordinator;
 @end
 
 @implementation SPXViewController
 
 - (void)viewDidLoad
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+  [super viewDidLoad];
+  
+  self.coordinator = [SPXDataCoordinator coordinatorForDataView:self.tableView dataProvider:nil];
 }
 
 @end

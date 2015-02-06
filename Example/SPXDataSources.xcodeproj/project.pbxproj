@@ -135,12 +135,12 @@
 		54E053091A85838D00B01B07 /* DataCoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				54E0530A1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.h */,
-				54E0530B1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.m */,
-				54E0530C1A85838D00B01B07 /* SPXDataCoordinator+UITableView.h */,
-				54E0530D1A85838D00B01B07 /* SPXDataCoordinator+UITableView.m */,
 				54E0530E1A85838D00B01B07 /* SPXDataCoordinator.h */,
 				54E0530F1A85838D00B01B07 /* SPXDataCoordinator.m */,
+				54E0530C1A85838D00B01B07 /* SPXDataCoordinator+UITableView.h */,
+				54E0530D1A85838D00B01B07 /* SPXDataCoordinator+UITableView.m */,
+				54E0530A1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.h */,
+				54E0530B1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.m */,
 			);
 			path = DataCoordinator;
 			sourceTree = "<group>";

@@ -28,5 +28,5 @@
 #import "SPXDataCoordinator+UICollectionView.h"
 
 #import "SPXCoreDataDataProvider.h"
-#import "NSArrayDataProvider.h"
+#import "SPXArrayDataProvider.h"
 

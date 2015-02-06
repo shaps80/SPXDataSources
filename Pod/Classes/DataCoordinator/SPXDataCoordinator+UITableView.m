@@ -9,6 +9,7 @@
 #import "SPXDataCoordinator+UITableView.h"
 #import "UITableView+SPXDataViewAdditions.h"
 #import "SPXAssertionDefines.h"
+#import "SPXLoggingDefines.h"
 
 @interface SPXDataCoordinator (Private) <UITableViewDataSource, SPXDataProviderDelegate>
 @property (nonatomic, strong) id <SPXDataProvider> dataProvider;
