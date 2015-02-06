@@ -1,0 +1,25 @@
+{
+  "name": "SPXDataSources",
+  "version": "0.1.0",
+  "summary": "A short description of SPXDataSources.",
+  "description": "                       An optional longer description of SPXDataSources\n\n                       * Markdown format.\n                       * Don't worry about the indent, we strip it!\n",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/SPXDataSources",
+  "license": "MIT",
+  "authors": {
+    "Shaps Mohsenin": "shaps@theappbusiness.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/SPXDataSources.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "7.0"
+  },
+  "requires_arc": true,
+  "source_files": "Pod/Classes/**/*",
+  "resource_bundles": {
+    "SPXDataSources": [
+      "Pod/Assets/*.png"
+    ]
+  }
+}
