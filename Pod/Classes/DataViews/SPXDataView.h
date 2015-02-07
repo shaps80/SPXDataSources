@@ -6,25 +6,105 @@
 //  Copyright (c) 2014 Snippex. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
+@class SPXDataCoordinator;
 @protocol SPXDataView;
 
+
+
+/**
+ *  Defines a block for providing items for your dataView
+ *
+ *  @param dataView  The view these items will be presented in. This will usually be a UITableView, UICollectionView. But can also be your own dataView implementation
+ *  @param object    The object associated with this item
+ *  @param indexPath The indexPath of the item
+ *
+ *  @return You would return a UITableViewCell, UICollectionViewCell, or your own implementation for any custom dataView's
+ */
 typedef id (^SPXViewForItemAtIndexPathBlock)(id <SPXDataView> dataView, id object, NSIndexPath *indexPath);
+
+
+/**
+ *  Defines a block for configuring items in your dataView
+ *
+ *  @param dataView  The view these items will be presented in. This will usually be a UITableView, UICollectionView. But can also be your own dataView implementation
+ *  @param view      The view to configure
+ *  @param object    The object associated with this item
+ *  @param indexPath The indexPath of this item
+ */
 typedef void (^SPXConfigureViewForItemAtIndexPathBlock)(id <SPXDataView> dataView, id view, id object, NSIndexPath *indexPath);
+
+
+/**
+ *  Defines a block for providing the title for your headers
+ *
+ *  @param dataView The view these items will be presented in. This will usually be a UITableView, UICollectionView. But can also be your own dataView implementation
+ *  @param section  The index of the section header for this title
+ *
+ *  @return An NSString representing this section's header title
+ */
 typedef NSString *(^SPXTitleForHeaderInSectionBlock)(id <SPXDataView> dataView, NSUInteger section);
+
+
+/**
+ *  Defines a block for providing the title for your footers
+ *
+ *  @param dataView The view these items will be presented in. This will usually be a UITableView, UICollectionView. But can also be your own dataView implementation
+ *  @param section  The index of the section footer for this title
+ *
+ *  @return An NSString representing this section's footer title
+ */
 typedef NSString *(^SPXTitleForFooterInSectionBlock)(id <SPXDataView> dataView, NSUInteger section);
-typedef void (^SPXCanEditItemAtIndexPathBlock)(id <SPXDataView> dataView, id view, id object, NSIndexPath *indexPath);
+
+
+/**
+ *  Defines a block for determining whether or not an item can be edited
+ *
+ *  @param dataView  The view these items will be presented in. This will usually be a UITableView, UICollectionView. But can also be your own dataView implementation
+ *  @param view      The view associated with this edit
+ *  @param object    The object associated with this edit
+ *  @param indexPath The indexPath associated with this edit
+ *
+ *  @return YES if this item can be edited, NO otherwise
+ */
+typedef BOOL (^SPXCanEditItemAtIndexPathBlock)(id <SPXDataView> dataView, id view, id object, NSIndexPath *indexPath);
+
+
+/**
+ *  Commits the editing style for this item. You can implement this to perform additional tasks when a delete occurs.
+ *
+ *  @param dataView  The view these items will be presented in. This will usually be a UITableView, UICollectionView. But can also be your own dataView implementation
+ *  @param view      The view associated with this edit
+ *  @param object    The object associated with this edit
+ *  @param indexPath The indexPath associated with this edit
+ */
 typedef void (^SPXCommitEditingStyleForItemAtIndexPathBlock)(id <SPXDataView> dataView, id view, id object, NSIndexPath *indexPath);
 
 
 
+/**
+ *  Defines an interface for all views to be used with SPXDataCoordinator
+ */
 @protocol SPXDataView <NSObject>
 
 
+/**
+ *  Gets/sets the block to execute for providing your cells. To configure your cells, use `configureViewForItemAtIndexPathBlock`
+ */
 @property (nonatomic, copy) SPXViewForItemAtIndexPathBlock viewForItemAtIndexPathBlock;
+
+
+/**
+ *  Gets/sets the block to execute for configuring your cells
+ */
 @property (nonatomic, copy) SPXConfigureViewForItemAtIndexPathBlock configureViewForItemAtIndexPathBlock;
-@property (nonatomic, weak) id dataSource;
+
+
+/**
+ *  The datasource for this view. This should always be the dataCoordinator and is managed automatically.
+ */
+@property (nonatomic, weak) SPXDataCoordinator *dataSource;
 
 
 #pragma mark - Updates
@@ -51,9 +131,36 @@ typedef void (^SPXCommitEditingStyleForItemAtIndexPathBlock)(id <SPXDataView> da
 #pragma mark - Sections
 
 
+/**
+ *  Inserts the specified sections
+ *
+ *  @param sections The sections to insert
+ */
 - (void)insertSections:(NSIndexSet *)sections;
+
+
+/**
+ *  Deletes all of the specified sections
+ *
+ *  @param sections The sections to delete
+ */
 - (void)deleteSections:(NSIndexSet *)sections;
+
+
+/**
+ *  Reloads all of the specified sections
+ *
+ *  @param sections The sections to reload
+ */
 - (void)reloadSections:(NSIndexSet *)sections;
+
+
+/**
+ *  Moves the specified section to a new position
+ *
+ *  @param section    The index of the section to move
+ *  @param newSection The new section index
+ */
 - (void)moveSection:(NSInteger)section toSection:(NSInteger)newSection;
 
 
@@ -107,15 +214,47 @@ typedef void (^SPXCommitEditingStyleForItemAtIndexPathBlock)(id <SPXDataView> da
 #pragma mark - Selection
 
 
+/**
+ *  Selects the item at the specified indexPath
+ *
+ *  @param indexPath      The indexPath to select
+ *  @param animated       If YES, animates the selection
+ *  @param scrollPosition The scroll position this item should appear in when selected
+ */
 - (void)selectItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(NSUInteger)scrollPosition;
+
+
+/**
+ *  De-selects the item at the specified indexPath
+ *
+ *  @param indexPath The indexPath to de-select
+ *  @param animated  If YES, animates the de-selection
+ */
 - (void)deselectItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated;
 
 
 #pragma mark - IndexPaths
 
 
+/**
+ *  Returns the indexPaths for selected items
+ */
 - (NSArray *)indexPathsForSelectedItems;
+
+
+/**
+ *  Returns the indexPaths for all visible items
+ */
 - (NSArray *)indexPathsForVisibleItems;
+
+
+/**
+ *  Returns the indexPath for an item at the specified point
+ *
+ *  @param point The point to inspect
+ *
+ *  @return An indexPath if it exists at the point, nil otherwise
+ */
 - (NSIndexPath *)indexPathForItemAtPoint:(CGPoint)point;
 
 
