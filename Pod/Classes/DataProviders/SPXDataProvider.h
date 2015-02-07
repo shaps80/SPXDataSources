@@ -36,11 +36,52 @@ typedef NS_ENUM (NSUInteger, SPXDataProviderChangeType) {
 
 @protocol SPXDataProvider;
 
+
+/**
+ *  Defines an interface for all data providers
+ */
 @protocol SPXDataProviderDelegate <NSObject>
+
+
+/**
+ *  This method will execute when the data provider will begin an update
+ *
+ *  @param provider The data provider that will update
+ */
 - (void)dataProviderWillUpdate:(id <SPXDataProvider>)provider;
+
+
+/**
+ *  This method will execute when a section change occurs in the data provider
+ *
+ *  @param provider     The dataProvider that was updated
+ *  @param sectionInfo  The section info that was updated
+ *  @param sectionIndex The section index that was updated
+ *  @param type         The type of update that occurred
+ */
 - (void)dataProvider:(id <SPXDataProvider>)provider didChangeSection:(SPXDataProviderSectionInfo *)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(SPXDataProviderChangeType)type;
+
+
+/**
+ *  This method will execute when an object change occurs in the data provider
+ *
+ *  @param provider     The dataProvider that was updated
+ *  @param anObject     The object that was updated
+ *  @param indexPath    The indexPath of the object that was updated
+ *  @param type         The type of update that occurred
+ *  @param newIndexPath The new indexPath that was updated. This is only applicable to move actions.
+ */
 - (void)dataProvider:(id <SPXDataProvider>)provider didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(SPXDataProviderChangeType)type newIndexPath:(NSIndexPath *)newIndexPath;
+
+
+/**
+ *  This method will execute when the data provider did complete an update
+ *
+ *  @param provider The data provider that was updated
+ */
 - (void)dataProviderDidUpdate:(id <SPXDataProvider>)provider;
+
+
 @end
 
 

@@ -6,8 +6,11 @@
 //  Copyright (c) 2014 Snippex. All rights reserved.
 //
 
+#import "UICollectionView+SPXDataViewAdditions.h"
 #import "SPXDataCoordinator.h"
 
+/**
+ *  Provides a UICollectionView specific implementation of SPXDataCoordinator
+ */
 @interface SPXDataCoordinator (UICollectionView)
-
 @end

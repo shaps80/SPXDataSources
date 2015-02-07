@@ -7,6 +7,7 @@
 //
 
 #import "SPXCoreDataConfiguration.h"
+#import "SPXDefines.h"
 
 @implementation SPXCoreDataConfiguration
 

@@ -7,6 +7,7 @@
 //
 
 #import "SPXArrayDataProvider.h"
+#import "SPXDefines.h"
 
 @import UIKit;
 

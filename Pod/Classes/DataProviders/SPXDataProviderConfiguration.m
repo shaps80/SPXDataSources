@@ -7,6 +7,7 @@
 //
 
 #import "SPXDataProviderConfiguration.h"
+#import "SPXDefines.h"
 
 @implementation SPXDataProviderConfiguration
 

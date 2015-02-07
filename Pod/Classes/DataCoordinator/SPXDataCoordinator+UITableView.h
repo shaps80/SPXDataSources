@@ -9,6 +9,8 @@
 #import "UITableView+SPXDataViewAdditions.h"
 #import "SPXDataCoordinator.h"
 
+/**
+ *  Provides a UITableView specific implementation of SPXDataCoordinator
+ */
 @interface SPXDataCoordinator (UITableView)
-
 @end

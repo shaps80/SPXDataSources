@@ -148,6 +148,7 @@
 		54E053101A85838D00B01B07 /* DataProviders */ = {
 			isa = PBXGroup;
 			children = (
+				54E053191A85838D00B01B07 /* SPXDataProvider.h */,
 				54E053111A85838D00B01B07 /* SPXArrayConfiguration.h */,
 				54E053121A85838D00B01B07 /* SPXArrayConfiguration.m */,
 				54E053131A85838D00B01B07 /* SPXArrayDataProvider.h */,
@@ -156,7 +157,6 @@
 				54E053161A85838D00B01B07 /* SPXCoreDataConfiguration.m */,
 				54E053171A85838D00B01B07 /* SPXCoreDataDataProvider.h */,
 				54E053181A85838D00B01B07 /* SPXCoreDataDataProvider.m */,
-				54E053191A85838D00B01B07 /* SPXDataProvider.h */,
 				54E0531A1A85838D00B01B07 /* SPXDataProviderConfiguration.h */,
 				54E0531B1A85838D00B01B07 /* SPXDataProviderConfiguration.m */,
 				54E0531C1A85838D00B01B07 /* SPXDataProviderSectionInfo.h */,

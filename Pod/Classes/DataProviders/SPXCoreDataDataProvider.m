@@ -8,7 +8,6 @@
 
 #import "SPXCoreDataDataProvider.h"
 #import "SPXDefines.h"
-#import "SPXCoreData.h"
 
 @interface SPXCoreDataDataProvider () <NSFetchedResultsControllerDelegate>
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -38,13 +37,12 @@
 
 - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath
 {
+  SPXAssertTrueOrPerformAction(self.deletionHandler, SPXLog(@"You must provide a deletion handler to handle deletes"));
+  
   NSManagedObject *object = [self objectAtIndexPath:indexPath];
   NSManagedObjectID *identifier = object.objectID;
   
-  [SPXCoreDataStack saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
-    NSManagedObject *objectToDelete = [localContext objectWithID:identifier];
-    [localContext deleteObject:objectToDelete];
-  }];
+  self.deletionHandler(identifier);
 }
 
 - (NSArray *)allItems

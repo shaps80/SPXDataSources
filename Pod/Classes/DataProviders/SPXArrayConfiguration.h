@@ -8,9 +8,18 @@
 
 #import "SPXDataProviderConfiguration.h"
 
+
+/**
+ *  Provides a configuration object to be used with SPXArrayDataProvider
+ */
 @interface SPXArrayDataConfiguration : SPXDataProviderConfiguration
 
+
+/**
+ *  Gets/sets the initial content to associate with this configuration
+ */
 @property (nonatomic, strong) NSArray *contents;
+
 
 @end
 

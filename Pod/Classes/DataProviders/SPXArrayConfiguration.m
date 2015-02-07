@@ -7,6 +7,7 @@
 //
 
 #import "SPXArrayConfiguration.h"
+#import "SPXDefines.h"
 
 @interface SPXArrayDataConfiguration ()
 @property (nonatomic, strong) NSMutableArray *data;
