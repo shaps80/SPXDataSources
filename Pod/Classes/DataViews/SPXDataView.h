@@ -6,8 +6,7 @@
 //  Copyright (c) 2014 Snippex. All rights reserved.
 //
 
-@import Foundation;
-@import CoreGraphics;
+#import <Foundation/Foundation.h>
 
 @protocol SPXDataView;
 
@@ -95,6 +94,7 @@ typedef void (^SPXCommitEditingStyleForItemAtIndexPathBlock)(id <SPXDataView> da
 
 
 #pragma mark - Cells
+
 
 /**
  *  Returns the view at the specified indexPath. This would be a UITableViewCell instance in a UITableView and a UICollectionViewCell in a UICollectionView
