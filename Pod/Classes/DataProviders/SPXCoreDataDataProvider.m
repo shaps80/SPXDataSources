@@ -67,6 +67,11 @@
   return self.fetchedResultsController.fetchedObjects;
 }
 
+- (NSArray *)sections
+{
+  return self.fetchedResultsController.sections;
+}
+
 - (NSUInteger)numberOfSections
 {
   return self.fetchedResultsController.sections.count;

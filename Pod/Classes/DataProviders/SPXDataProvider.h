@@ -124,6 +124,14 @@ typedef NS_ENUM (NSUInteger, SPXDataProviderChangeType) {
 
 
 /**
+ *  Returns an array of all sections
+ *
+ *  @return An array of section
+ */
+- (NSArray *)sections;
+
+
+/**
  *  Returns the NSIndexPath for the specified object
  *
  *  @param object The object to get the indexPath for
