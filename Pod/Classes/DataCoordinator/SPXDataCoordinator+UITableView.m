@@ -134,6 +134,10 @@
     title = block(tableView, section);
   }
   
+  if (!title) {
+    title = [self.dataProvider sectionNameForSection:section];
+  }
+  
   return title;
 }
 

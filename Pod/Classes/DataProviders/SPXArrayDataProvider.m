@@ -67,7 +67,12 @@
     return 0;
   }
   
-  NSArray *items = [self.sectionToItemsMapping objectForKey:self.sections[section]];
+  NSArray *items = [self.sectionToItemsMapping objectForKey:[NSNull null]];
+  
+  if (!items) {
+    items = [self.sectionToItemsMapping objectForKey:self.sections[section]];
+  }
+
   return items.count;
 }
 
@@ -119,8 +124,15 @@
 
 - (NSError *)reloadData
 {
+  if ([self.delegate respondsToSelector:@selector(dataProviderWillUpdate:)]) {
+    [self.delegate dataProviderWillUpdate:self];
+  }
+  
   [self reloadContent];
-  [self reloadSortDescriptors];
+  
+  if ([self.delegate respondsToSelector:@selector(dataProviderDidUpdate:)]) {
+    [self.delegate dataProviderDidUpdate:self];
+  }
   
   return nil;
 }
@@ -128,54 +140,50 @@
 - (void)reloadContent
 {
   self.sections = [NSMutableArray new];
-  self.sectionToItemsMapping = [NSMapTable weakToStrongObjectsMapTable];
+  self.sectionToItemsMapping = [NSMapTable strongToStrongObjectsMapTable];
   
   NSMutableArray *contents = self.configuration.contents.mutableCopy;
   
-  if (!self.configuration.sectionNameKeyPath.length) {
-    if (self.configuration.predicate) {
-      [contents filterUsingPredicate:self.configuration.predicate];
-    }
-    
-    if (self.configuration.sortDescriptors) {
-      [contents sortUsingDescriptors:self.configuration.sortDescriptors];
-    }
-    
-    [self.sections addObject:[NSNull null]];
-    [self.sectionToItemsMapping setObject:[NSNull null] forKey:contents];
+  if (self.configuration.predicate) {
+    [contents filterUsingPredicate:self.configuration.predicate];
   }
   
-//  NSHashTable *sections = [NSHashTable weakObjectsHashTable];
-//  NSMapTable *sectionsToItems = [NSMapTable weakToStrongObjectsMapTable];
-//  
-//  for (id item in self.configuration.contents) {
-//    id value = [item valueForKeyPath:self.configuration.sectionNameKeyPath];
-//    NSMutableArray *items = [sectionsToItems objectForKey:value];
-//    
-//    if (!items) {
-//      items = [NSMutableArray new];
-//      [sectionsToItems setObject:items forKey:value];
-//      [sections addObject:value];
-//    }
-//    
-//    [items addObject:item];
-//  }
-//  
-//  if (self.configuration.sortDescriptors.count) {
-//    
-//  }
-//  
-//  for (id section in self.sections) {
-//    id items = [sectionsToItems objectForKey:section];
-//    [sectionsToItems setObject:items forKey:section];
-//  }
-//  
-//  self.sectionToItemsMapping = sectionsToItems;
-}
+  if (!self.configuration.sectionNameKeyPath.length) {
+    [contents sortUsingDescriptors:self.configuration.sortDescriptors];
+    
+    [self.sections addObject:[NSNull null]];
+    [self.sectionToItemsMapping setObject:contents forKey:[NSNull null]];
+    
+    return;
+  }
 
-- (void)reloadSortDescriptors
-{
+  for (id item in contents) {
+    id value = [item valueForKeyPath:self.configuration.sectionNameKeyPath];
+    NSMutableArray *items = [self.sectionToItemsMapping objectForKey:value];
+    
+    if (!items) {
+      items = [NSMutableArray new];
+      [self.sectionToItemsMapping setObject:items forKey:value];
+      [self.sections addObject:value];
+    }
+    
+    [items addObject:item];
+  }
   
+  if (!self.configuration.sortDescriptors) {
+    return;
+  }
+  
+  NSMutableArray *sortDescriptors = self.configuration.sortDescriptors.mutableCopy;
+  NSSortDescriptor *sectionSorting = sortDescriptors.firstObject;
+  [sortDescriptors removeObject:sectionSorting];
+  
+  [self.sections sortUsingDescriptors:@[ sectionSorting ]];
+  
+  for (id section in self.sections) {
+    NSMutableArray *items = [self.sectionToItemsMapping objectForKey:section];
+    [items sortUsingDescriptors:sortDescriptors];
+  }
 }
 
 - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath
