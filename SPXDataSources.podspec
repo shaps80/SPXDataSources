@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SPXDataSources"
-  s.version          = "1.0.0"
+  s.version          = "1.0.1"
   s.summary          = "DataSource implementations for UITableView and UICollection, plus more..."
   s.homepage         = "https://github.com/shaps80/SPXDataSources"
   s.license          = 'MIT'
