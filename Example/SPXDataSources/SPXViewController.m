@@ -65,6 +65,8 @@
     
     configuration.contents = @[ one, two,three, four, five, six, seven ];
     configuration.sectionNameKeyPath = @"age";
+    
+    configuration.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"self" ascending:YES] ];
   }];
   
   [self.tableView setConfigureViewForItemAtIndexPathBlock:^(UITableView *tableView, UITableViewCell *cell, SPXObject *object, NSIndexPath *indexPath) {

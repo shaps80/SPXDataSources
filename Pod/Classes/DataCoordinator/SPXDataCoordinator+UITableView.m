@@ -138,6 +138,10 @@
     title = [self.dataProvider sectionNameForSection:section];
   }
   
+  if ([title isEqualToString:@"<null>"]) {
+    return nil;
+  }
+  
   return title;
 }
 
