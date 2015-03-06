@@ -136,16 +136,13 @@
 
 - (NSError *)reloadData
 {
+  SPXAssertTrueOrReturnNil([NSThread isMainThread]);
   _fetchedResultsController = nil;
   
   __block NSError *error = nil;
   __weak typeof(self) weakInstance = self;
   
-  [self.configuration.managedObjectContext performBlockAndWait:^{
-    SPXCAssertTrueOrReturn([NSThread isMainThread]);
-    [weakInstance.fetchedResultsController performFetch:&error];
-  }];
-  
+  [self.fetchedResultsController performFetch:&error];
   return error;
 }
 
