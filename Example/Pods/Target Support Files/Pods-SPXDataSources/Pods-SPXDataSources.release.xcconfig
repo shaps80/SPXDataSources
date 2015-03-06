@@ -1,6 +1,6 @@
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Kiwi" "${PODS_ROOT}/Headers/Public/SPXDataSources" "${PODS_ROOT}/Headers/Public/SPXDefines"
-OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Kiwi" -isystem "${PODS_ROOT}/Headers/Public/SPXDataSources" -isystem "${PODS_ROOT}/Headers/Public/SPXDefines"
-OTHER_LDFLAGS = -ObjC -l"Pods-SPXDataSources-SPXDataSources" -l"Pods-SPXDataSources-SPXDefines"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers/Public" "${PODS_ROOT}/Headers/Public/Kiwi" "${PODS_ROOT}/Headers/Public/SPXDataSources" "${PODS_ROOT}/Headers/Public/SPXDefines" "${PODS_ROOT}/Headers/Public/Stack"
+OTHER_CFLAGS = $(inherited) -isystem "${PODS_ROOT}/Headers/Public" -isystem "${PODS_ROOT}/Headers/Public/Kiwi" -isystem "${PODS_ROOT}/Headers/Public/SPXDataSources" -isystem "${PODS_ROOT}/Headers/Public/SPXDefines" -isystem "${PODS_ROOT}/Headers/Public/Stack"
+OTHER_LDFLAGS = -ObjC -l"Pods-SPXDataSources-SPXDataSources" -l"Pods-SPXDataSources-SPXDefines" -l"Pods-SPXDataSources-Stack"
 OTHER_LIBTOOLFLAGS = $(OTHER_LDFLAGS)
 PODS_ROOT = ${SRCROOT}/Pods

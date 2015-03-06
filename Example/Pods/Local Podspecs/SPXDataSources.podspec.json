@@ -1,7 +1,7 @@
 {
   "name": "SPXDataSources",
-  "version": "1.0.0",
-  "summary": "My data sources implementation.",
+  "version": "1.0.1",
+  "summary": "DataSource implementations for UITableView and UICollection, plus more...",
   "homepage": "https://github.com/shaps80/SPXDataSources",
   "license": "MIT",
   "authors": {
@@ -9,7 +9,7 @@
   },
   "source": {
     "git": "https://github.com/shaps80/SPXDataSources.git",
-    "tag": "1.0.0"
+    "tag": "1.0.1"
   },
   "social_media_url": "https://twitter.com/shaps",
   "platforms": {
@@ -19,6 +19,9 @@
   "source_files": "Pod/Classes/**/*",
   "dependencies": {
     "SPXDefines": [
+
+    ],
+    "Stack": [
 
     ]
   }

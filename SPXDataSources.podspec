@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = "SPXDataSources"
-  s.version          = "1.0.1"
+  s.version          = "1.1.0"
   s.summary          = "DataSource implementations for UITableView and UICollection, plus more..."
   s.homepage         = "https://github.com/shaps80/SPXDataSources"
   s.license          = 'MIT'
@@ -11,4 +11,5 @@ Pod::Spec.new do |s|
   s.requires_arc     = true
   s.source_files     = 'Pod/Classes/**/*'
   s.dependency 'SPXDefines'
+  s.dependency 'Stack'
 end
