@@ -139,9 +139,7 @@
   SPXAssertTrueOrReturnNil([NSThread isMainThread]);
   _fetchedResultsController = nil;
   
-  __block NSError *error = nil;
-  __weak typeof(self) weakInstance = self;
-  
+  __block NSError *error = nil;  
   [self.fetchedResultsController performFetch:&error];
   return error;
 }

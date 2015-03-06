@@ -34,15 +34,9 @@
 
 
 /**
- *  Gets/sets the managedObjectContext associated with this configuration
- */
-@property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
-
-
-/**
  *  Gets/sets the name of the entity to associate with this configuration
  */
-@property (nonatomic, strong) NSString *entityName;
+@property (nonatomic, strong) Class managedObjectClass;
 
 
 @end

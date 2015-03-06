@@ -51,14 +51,7 @@ typedef void (^SPXCoreDataDeletionHandler)(NSManagedObjectID *objectID);
 
 
 /**
- *  Description
- *
- *  @example
- *  
- *    [SPXCoreDataStack saveWithBlockAndWait:^(NSManagedObjectContext *localContext) {
- *      NSManagedObject *objectToDelete = [localContext objectWithID:identifier];
- *      [localContext deleteObject:objectToDelete];
- *    }];
+ *  Use this handler to delete your persisted objects from CoreData
  */
 @property (nonatomic, strong) SPXCoreDataDeletionHandler deletionHandler;
 

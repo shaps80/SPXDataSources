@@ -31,16 +31,13 @@
 - (id)copyWithZone:(NSZone *)zone
 {
   SPXCoreDataConfiguration *configuration = [super copyWithZone:zone];
-
-  configuration.entityName = self.entityName;
-  configuration.managedObjectContext = self.managedObjectContext;
-
+  configuration->_managedObjectClass = self.managedObjectClass;
   return configuration;
 }
 
 - (NSString *)description
 {
-  return SPXDescription(SPXKeyPath(entityName), SPXKeyPath(managedObjectContext));
+  return SPXDescription(SPXKeyPath(managedObjectClass));
 }
 
 @end
