@@ -130,7 +130,7 @@
     NSArray *sorting = self.configuration.sortDescriptors;
     NSPredicate *predicate = self.configuration.predicate;
     NSString *section = self.configuration.sectionNameKeyPath;
-    _fetchedResultsController = stack.query(nil).sortWithDescriptors(sorting).wherePredicate(predicate).fetchedResultsController(section, self);
+    _fetchedResultsController = stack.query(self.configuration.managedObjectClass).sortWithDescriptors(sorting).wherePredicate(predicate).fetchedResultsController(section, self);
   });
 }
 
@@ -139,7 +139,7 @@
   SPXAssertTrueOrReturnNil([NSThread isMainThread]);
   _fetchedResultsController = nil;
   
-  __block NSError *error = nil;  
+  __block NSError *error = nil;
   [self.fetchedResultsController performFetch:&error];
   return error;
 }
