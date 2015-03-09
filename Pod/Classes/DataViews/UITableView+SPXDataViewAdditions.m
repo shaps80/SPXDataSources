@@ -95,7 +95,7 @@ static void *MoveItemAtSourceIndexPathToDestinationIndexPathKey = &MoveItemAtSou
 
 - (void)insertSections:(NSIndexSet *)sections
 {
-  [self insertSections:sections withRowAnimation:UITableViewRowAnimationAutomatic];
+  [self insertSections:sections withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)deleteSections:(NSIndexSet *)sections
@@ -117,7 +117,8 @@ static void *MoveItemAtSourceIndexPathToDestinationIndexPathKey = &MoveItemAtSou
 
 - (void)moveItemAtIndexPath:(NSIndexPath *)indexPath toIndexPath:(NSIndexPath *)newIndexPath
 {
-  [self moveRowAtIndexPath:indexPath toIndexPath:newIndexPath];
+  [self deleteRowsAtIndexPaths:@[ indexPath ] withRowAnimation:UITableViewRowAnimationFade];
+  [self insertRowsAtIndexPaths:@[ newIndexPath ] withRowAnimation:UITableViewRowAnimationFade];
 }
 
 #pragma mark - Selection

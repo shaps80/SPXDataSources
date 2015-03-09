@@ -286,4 +286,12 @@ typedef void (^SPXCommitEditingStyleForItemAtIndexPathBlock)(id <SPXDataView> da
 - (NSInteger)numberOfItemsInSection:(NSInteger)section;
 
 
+/**
+ *  Returns the number of sections for this view
+ *
+ *  @return The number of section
+ */
+- (NSInteger)numberOfSections;
+
+
 @end

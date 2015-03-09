@@ -24,6 +24,7 @@
  */
 
 #import "SPXDataProviderSectionInfo.h"
+#import "SPXDescriptionDefines.h"
 
 @interface SPXDataProviderSectionInfo ()
 
@@ -44,6 +45,11 @@
   info.numberOfObjects = sectionInfo.numberOfObjects;
   info.objects = [sectionInfo.objects copy];
   return info;
+}
+
+- (NSString *)description
+{
+  return SPXDescription(SPXKeyPath(name), SPXKeyPath(indexTitle), SPXKeyPath(numberOfObjects));
 }
 
 @end

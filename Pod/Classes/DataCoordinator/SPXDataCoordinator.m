@@ -39,6 +39,7 @@ NSString * const SPXDataViewViewReuseIdentifier = @"SPXDataViewViewReuseIdentifi
 
 @property (nonatomic, weak) id <SPXDataView> dataView;
 @property (nonatomic, strong) id <SPXDataProvider> dataProvider;
+@property (nonatomic, assign) BOOL sectionsDidChange;
 
 @end
 
@@ -57,6 +58,8 @@ NSString * const SPXDataViewViewReuseIdentifier = @"SPXDataViewViewReuseIdentifi
 
 - (void)dataProviderWillUpdate:(id<SPXDataProvider>)provider
 {
+  self.sectionsDidChange = NO;
+  
   if ([self.dataView isKindOfClass:[UITableView class]]) {
     [((UITableView *)self.dataView) beginUpdates];
   }
@@ -72,9 +75,10 @@ NSString * const SPXDataViewViewReuseIdentifier = @"SPXDataViewViewReuseIdentifi
       [self.dataView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
       break;
     default:
-      [self.dataView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
-      break;
+      break; // do nothing
   }
+  
+  self.sectionsDidChange = YES;
 }
 
 - (void)dataProvider:(id<SPXDataProvider>)provider didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(SPXDataProviderChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
@@ -97,8 +101,14 @@ NSString * const SPXDataViewViewReuseIdentifier = @"SPXDataViewViewReuseIdentifi
 
 - (void)dataProviderDidUpdate:(id<SPXDataProvider>)provider
 {
+  [self.dataView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.dataView numberOfSections])]];
+
   if ([self.dataView isKindOfClass:[UITableView class]]) {
     [((UITableView *)self.dataView) endUpdates];
+  }
+  
+  if (self.sectionsDidChange) {
+    [self.dataView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.dataView numberOfSections])]];
   }
   
   if ([self.delegate respondsToSelector:@selector(coordinatorDidUpdate:)]) {
