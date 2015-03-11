@@ -29,9 +29,6 @@
 #import "UITableView+SPXDataViewAdditions.h"
 #import "UICollectionView+SPXDataViewAdditions.h"
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wprotocol"
-
 NSString * const SPXDataViewViewReuseIdentifier = @"SPXDataViewViewReuseIdentifier";
 
 
@@ -117,7 +114,4 @@ NSString * const SPXDataViewViewReuseIdentifier = @"SPXDataViewViewReuseIdentifi
 }
 
 @end
-
-
-#pragma clang diagnostic pop
 

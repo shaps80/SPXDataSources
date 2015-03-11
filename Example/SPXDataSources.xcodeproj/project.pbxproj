@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5429E91F1AB0968100E92759 /* SPXNetworkDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5429E91E1AB0968100E92759 /* SPXNetworkDataService.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -38,6 +39,9 @@
 
 /* Begin PBXFileReference section */
 		4DE569FFFAB69444047AF584 /* SPXDataSources.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SPXDataSources.podspec; path = ../SPXDataSources.podspec; sourceTree = "<group>"; };
+		5429E91C1AB094CE00E92759 /* SPXDataService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXDataService.h; sourceTree = "<group>"; };
+		5429E91D1AB0968100E92759 /* SPXNetworkDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXNetworkDataService.h; sourceTree = "<group>"; };
+		5429E91E1AB0968100E92759 /* SPXNetworkDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXNetworkDataService.m; sourceTree = "<group>"; };
 		54E0530A1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SPXDataCoordinator+UICollectionView.h"; sourceTree = "<group>"; };
 		54E0530B1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SPXDataCoordinator+UICollectionView.m"; sourceTree = "<group>"; };
 		54E0530C1A85838D00B01B07 /* SPXDataCoordinator+UITableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SPXDataCoordinator+UITableView.h"; sourceTree = "<group>"; };
@@ -120,10 +124,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5429E91B1AB094AC00E92759 /* DataServices */ = {
+			isa = PBXGroup;
+			children = (
+				5429E91C1AB094CE00E92759 /* SPXDataService.h */,
+				5429E91D1AB0968100E92759 /* SPXNetworkDataService.h */,
+				5429E91E1AB0968100E92759 /* SPXNetworkDataService.m */,
+			);
+			path = DataServices;
+			sourceTree = "<group>";
+		};
 		54E053081A85833700B01B07 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
 				54E053251A8583F900B01B07 /* SPXDataSources.h */,
+				5429E91B1AB094AC00E92759 /* DataServices */,
 				54E053091A85838D00B01B07 /* DataCoordinator */,
 				54E053101A85838D00B01B07 /* DataProviders */,
 				54E0531E1A85838D00B01B07 /* DataViews */,
@@ -446,6 +461,7 @@
 			files = (
 				6003F59E195388D20070C39A /* SPXAppDelegate.m in Sources */,
 				6003F5A7195388D20070C39A /* SPXViewController.m in Sources */,
+				5429E91F1AB0968100E92759 /* SPXNetworkDataService.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
