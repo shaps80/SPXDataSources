@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5429E91F1AB0968100E92759 /* SPXNetworkDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5429E91E1AB0968100E92759 /* SPXNetworkDataService.m */; };
+		54A8EFFB1AB099640033226A /* SPXTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A8EFFA1AB099640033226A /* SPXTableViewController.m */; };
+		54A8EFFE1AB09A0B0033226A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 54A8EFFC1AB09A0B0033226A /* Model.xcdatamodeld */; };
+		54A8F0011AB09A240033226A /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A8F0001AB09A240033226A /* Person.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
 		6003F592195388D20070C39A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F591195388D20070C39A /* UIKit.framework */; };
@@ -42,6 +45,11 @@
 		5429E91C1AB094CE00E92759 /* SPXDataService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXDataService.h; sourceTree = "<group>"; };
 		5429E91D1AB0968100E92759 /* SPXNetworkDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXNetworkDataService.h; sourceTree = "<group>"; };
 		5429E91E1AB0968100E92759 /* SPXNetworkDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXNetworkDataService.m; sourceTree = "<group>"; };
+		54A8EFF91AB099640033226A /* SPXTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXTableViewController.h; sourceTree = "<group>"; };
+		54A8EFFA1AB099640033226A /* SPXTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXTableViewController.m; sourceTree = "<group>"; };
+		54A8EFFD1AB09A0B0033226A /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
+		54A8EFFF1AB09A240033226A /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
+		54A8F0001AB09A240033226A /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		54E0530A1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SPXDataCoordinator+UICollectionView.h"; sourceTree = "<group>"; };
 		54E0530B1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SPXDataCoordinator+UICollectionView.m"; sourceTree = "<group>"; };
 		54E0530C1A85838D00B01B07 /* SPXDataCoordinator+UITableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SPXDataCoordinator+UITableView.h"; sourceTree = "<group>"; };
@@ -236,6 +244,11 @@
 				6003F5A2195388D20070C39A /* Main_iPad.storyboard */,
 				6003F5A5195388D20070C39A /* SPXViewController.h */,
 				6003F5A6195388D20070C39A /* SPXViewController.m */,
+				54A8EFF91AB099640033226A /* SPXTableViewController.h */,
+				54A8EFFA1AB099640033226A /* SPXTableViewController.m */,
+				54A8EFFC1AB09A0B0033226A /* Model.xcdatamodeld */,
+				54A8EFFF1AB09A240033226A /* Person.h */,
+				54A8F0001AB09A240033226A /* Person.m */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
 			);
@@ -460,9 +473,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6003F59E195388D20070C39A /* SPXAppDelegate.m in Sources */,
+				54A8EFFB1AB099640033226A /* SPXTableViewController.m in Sources */,
+				54A8F0011AB09A240033226A /* Person.m in Sources */,
 				6003F5A7195388D20070C39A /* SPXViewController.m in Sources */,
 				5429E91F1AB0968100E92759 /* SPXNetworkDataService.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
+				54A8EFFE1AB09A0B0033226A /* Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -693,6 +709,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		54A8EFFC1AB09A0B0033226A /* Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				54A8EFFD1AB09A0B0033226A /* Model.xcdatamodel */,
+			);
+			currentVersion = 54A8EFFD1AB09A0B0033226A /* Model.xcdatamodel */;
+			path = Model.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 6003F582195388D10070C39A /* Project object */;
 }

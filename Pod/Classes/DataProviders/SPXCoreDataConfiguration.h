@@ -36,7 +36,7 @@
 /**
  *  Gets/sets the name of the entity to associate with this configuration
  */
-@property (nonatomic, strong) Class managedObjectClass;
+@property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 
 
 @end

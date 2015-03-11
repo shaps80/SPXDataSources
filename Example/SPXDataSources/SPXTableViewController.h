@@ -1,5 +1,5 @@
 /*
- Copyright (c) 2015 Shaps Mohsenin. All rights reserved.
+   Copyright (c) 2015 Shaps Mohsenin. All rights reserved.
  
  Redistribution and use in source and binary forms, with or without
  modification, are permitted provided that the following conditions are met:
@@ -23,15 +23,8 @@
  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "SPXCoreDataConfiguration.h"
-#import "SPXDefines.h"
+#import <UIKit/UIKit.h>
 
-@implementation SPXCoreDataConfiguration
-
-- (NSString *)description
-{
-  return SPXDescription(SPXKeyPath(fetchedResultsController));
-}
+@interface SPXTableViewController : UITableViewController
 
 @end
-

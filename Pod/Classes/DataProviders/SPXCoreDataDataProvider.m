@@ -25,7 +25,6 @@
 
 #import "SPXCoreDataDataProvider.h"
 #import "SPXDefines.h"
-#import "Stack.h"
 
 @interface SPXCoreDataDataProvider () <NSFetchedResultsControllerDelegate>
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
@@ -50,6 +49,7 @@
 - (void)applyConfiguration:(SPXCoreDataConfiguration *)configuration
 {
   self.configuration = configuration;
+  self.configuration.fetchedResultsController.delegate = self;
   [self reloadData];
 }
 
@@ -125,13 +125,7 @@
 
 - (NSFetchedResultsController *)fetchedResultsController
 {
-  return _fetchedResultsController ?: ({
-    Stack *stack = Stack.defaultStack;
-    NSArray *sorting = self.configuration.sortDescriptors;
-    NSPredicate *predicate = self.configuration.predicate;
-    NSString *section = self.configuration.sectionNameKeyPath;
-    _fetchedResultsController = stack.query(self.configuration.managedObjectClass).sortWithDescriptors(sorting).wherePredicate(predicate).fetchedResultsController(section, self);
-  });
+  return self.configuration.fetchedResultsController;
 }
 
 - (NSError *)reloadData
