@@ -27,6 +27,7 @@
 #import "SPXDataSources.h"
 #import "Stack.h"
 #import "Person.h"
+#import "LoremIpsum.h"
 
 @interface SPXTableViewController ()
 @property (nonatomic, strong) SPXDataCoordinator *coordinator;
@@ -38,6 +39,14 @@
 {
   [super viewDidLoad];
   
+  for (int i = 0; i < 10; i++) {
+    Stack.defaultStack.transaction(^{
+      StackQuery *query = Stack.defaultStack.query(Person.class);
+      Person *person = query.whereIdentifier([NSString stringWithFormat:@"%zd", i], YES);
+      person.name = [LoremIpsum name];
+    }).synchronous(YES);
+  }
+  
   SPXCoreDataDataProvider *provider = [SPXCoreDataDataProvider providerWithConfiguration:^(SPXCoreDataConfiguration *configuration) {
     NSArray *sorting = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
     StackQuery *query = Stack.defaultStack.query(Person.class);
@@ -46,14 +55,8 @@
   
   self.coordinator = [SPXDataCoordinator coordinatorForDataView:self.tableView dataProvider:provider];
   
-  [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"Cell"];
-  
-  [self.tableView setViewForItemAtIndexPathBlock:^UITableViewCell *(UITableView *tableView, id object, NSIndexPath *indexPath) {
-    return [tableView dequeueReusableCellWithIdentifier:@"Cell"];
-  }];
-  
   [self.tableView setConfigureViewForItemAtIndexPathBlock:^(UITableView *tableView, UITableViewCell *cell, id object, NSIndexPath *indexPath) {
-    
+    cell.textLabel.text = [object name];
   }];
 }
 

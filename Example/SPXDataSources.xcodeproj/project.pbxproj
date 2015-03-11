@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5429E91F1AB0968100E92759 /* SPXNetworkDataService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5429E91E1AB0968100E92759 /* SPXNetworkDataService.m */; };
 		54A8EFFB1AB099640033226A /* SPXTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A8EFFA1AB099640033226A /* SPXTableViewController.m */; };
 		54A8EFFE1AB09A0B0033226A /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 54A8EFFC1AB09A0B0033226A /* Model.xcdatamodeld */; };
 		54A8F0011AB09A240033226A /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 54A8F0001AB09A240033226A /* Person.m */; };
@@ -476,7 +475,6 @@
 				54A8EFFB1AB099640033226A /* SPXTableViewController.m in Sources */,
 				54A8F0011AB09A240033226A /* Person.m in Sources */,
 				6003F5A7195388D20070C39A /* SPXViewController.m in Sources */,
-				5429E91F1AB0968100E92759 /* SPXNetworkDataService.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 				54A8EFFE1AB09A0B0033226A /* Model.xcdatamodeld in Sources */,
 			);

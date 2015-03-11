@@ -2,6 +2,8 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'SPXDataSources', :exclusive => true do
   pod "SPXDataSources", :path => "../"
+  pod "LoremIpsum"
+  pod "Stack"
 end
 
 target 'Tests', :exclusive => true do
