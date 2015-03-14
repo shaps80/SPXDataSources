@@ -23,17 +23,17 @@
  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import "SPXTableViewController.h"
+#import "CoreDataViewController.h"
 #import "SPXDataSources.h"
 #import "Stack.h"
 #import "Person.h"
 #import "LoremIpsum.h"
 
-@interface SPXTableViewController ()
+@interface CoreDataViewController ()
 @property (nonatomic, strong) SPXDataCoordinator *coordinator;
 @end
 
-@implementation SPXTableViewController
+@implementation CoreDataViewController
 
 - (void)viewDidLoad
 {
@@ -44,19 +44,35 @@
       StackQuery *query = Stack.defaultStack.query(Person.class);
       Person *person = query.whereIdentifier([NSString stringWithFormat:@"%zd", i], YES);
       person.name = [LoremIpsum name];
+      person.age = @(arc4random_uniform(3));
     }).synchronous(YES);
   }
   
   SPXCoreDataDataProvider *provider = [SPXCoreDataDataProvider providerWithConfiguration:^(SPXCoreDataConfiguration *configuration) {
     NSArray *sorting = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
     StackQuery *query = Stack.defaultStack.query(Person.class);
-    configuration.fetchedResultsController = query.sortWithDescriptors(sorting).fetchedResultsController(nil, nil);
+    configuration.fetchedResultsController = query.sortWithDescriptors(sorting).fetchedResultsController(@"age", nil);
   }];
   
   self.coordinator = [SPXDataCoordinator coordinatorForDataView:self.tableView dataProvider:provider];
   
   [self.tableView setConfigureViewForItemAtIndexPathBlock:^(UITableView *tableView, UITableViewCell *cell, id object, NSIndexPath *indexPath) {
     cell.textLabel.text = [object name];
+  }];
+  
+  [self.tableView setCanEditItemAtIndexPathBlock:^BOOL(UITableView *tableView, UITableViewCell *cell, id object, NSIndexPath *indexPath) {
+    return YES;
+  }];
+  
+  __weak typeof(self) weakInstance = self;
+  [provider setDeletionHandler:^(NSIndexPath *indexPath) {
+    Stack *stack = Stack.defaultStack;
+    Person *person = [weakInstance.coordinator.dataProvider objectAtIndexPath:indexPath];
+    
+    stack.transaction(^{
+      @stack_copy(person);
+      stack.query(Person.class).deleteObjects(@[ person ]);
+    }).synchronous(YES);
   }];
 }
 

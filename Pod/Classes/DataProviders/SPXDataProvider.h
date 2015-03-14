@@ -189,12 +189,7 @@ typedef NS_ENUM (NSUInteger, SPXDataProviderChangeType) {
 
 
 /**
- *  Although you may choose not to use these methods, it is recommended for persisting updates in a consistent manner and must be implemented even if you plan not to use them.
- */
-
-
-/**
- *  DataProvider's are also responsible for the adding/removing of items.
+ *  DataProvider's are also responsible for the removing of items. You can safely call this method directly but its generally called automatically when the user swipes to delete
  *
  *  @param indexPath The indexPath of the item to delete
  */

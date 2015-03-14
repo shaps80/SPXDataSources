@@ -98,14 +98,8 @@ NSString * const SPXDataViewViewReuseIdentifier = @"SPXDataViewViewReuseIdentifi
 
 - (void)dataProviderDidUpdate:(id<SPXDataProvider>)provider
 {
-  [self.dataView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.dataView numberOfSections])]];
-
   if ([self.dataView isKindOfClass:[UITableView class]]) {
     [((UITableView *)self.dataView) endUpdates];
-  }
-  
-  if (self.sectionsDidChange) {
-    [self.dataView reloadSections:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, [self.dataView numberOfSections])]];
   }
   
   if ([self.delegate respondsToSelector:@selector(coordinatorDidUpdate:)]) {

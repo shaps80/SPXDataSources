@@ -25,6 +25,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SPXTableViewController : UITableViewController
+@interface CoreDataViewController : UITableViewController
 
 @end

@@ -55,12 +55,17 @@
 
 - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath
 {
-  SPXAssertTrueOrPerformAction(self.deletionHandler, SPXLog(@"You must provide a deletion handler to handle deletes"));
+  SPXAssertTrueOrPerformAction(self.deletionHandler, SPXLog(@"You must provide a deletion handler to handle deletes"); return);
   
-  NSManagedObject *object = [self objectAtIndexPath:indexPath];
-  NSManagedObjectID *identifier = object.objectID;
+  if ([self.delegate respondsToSelector:@selector(dataProviderWillUpdate:)]) {
+    [self.delegate dataProviderWillUpdate:self];
+  }
   
-  self.deletionHandler(identifier);
+  !self.deletionHandler ?: self.deletionHandler(indexPath);
+  
+  if ([self.delegate respondsToSelector:@selector(dataProviderDidUpdate:)]) {
+    [self.delegate dataProviderDidUpdate:self];
+  }
 }
 
 - (NSArray *)allItems
@@ -167,7 +172,6 @@
     [self.delegate dataProvider:self didChangeObject:anObject atIndexPath:indexPath forChangeType:(SPXDataProviderChangeType)type newIndexPath:newIndexPath];
   }
 }
-
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {

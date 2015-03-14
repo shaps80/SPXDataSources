@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SPXViewController : UITableViewController
+@interface ArrayViewController : UITableViewController
 
 @end

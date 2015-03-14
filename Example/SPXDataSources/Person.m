@@ -13,5 +13,6 @@
 
 @dynamic name;
 @dynamic identifier;
+@dynamic age;
 
 @end

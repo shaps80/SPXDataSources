@@ -47,6 +47,12 @@
 
 - (void)setContents:(NSArray *)contents
 {
+  Class klass = [contents.firstObject class];
+  
+  for (id object in contents) {
+    SPXAssertTrueOrReturn([[object class] isSubclassOfClass:klass]);
+  }
+  
   self.data = contents.mutableCopy;
 }
 

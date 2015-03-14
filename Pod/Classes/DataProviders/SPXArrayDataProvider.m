@@ -148,9 +148,17 @@
     [contents filterUsingPredicate:self.configuration.predicate];
   }
   
-  if (!self.configuration.sectionNameKeyPath.length) {
-    [contents sortUsingDescriptors:self.configuration.sortDescriptors];
+  if (self.configuration.sortDescriptors) {
+    NSMutableArray *sorting = self.configuration.sortDescriptors.mutableCopy;
     
+    if (![[self.configuration.sortDescriptors.firstObject key] isEqualToString:self.configuration.sectionNameKeyPath]) {
+      [sorting insertObject:[NSSortDescriptor sortDescriptorWithKey:self.configuration.sectionNameKeyPath ascending:YES] atIndex:0];
+    }
+    
+    [contents sortUsingDescriptors:sorting];
+  }
+  
+  if (!self.configuration.sectionNameKeyPath.length) {
     [self.sections addObject:[NSNull null]];
     [self.sectionToItemsMapping setObject:contents forKey:[NSNull null]];
     
@@ -169,21 +177,6 @@
     
     [items addObject:item];
   }
-  
-  if (!self.configuration.sortDescriptors) {
-    return;
-  }
-  
-  NSMutableArray *sortDescriptors = self.configuration.sortDescriptors.mutableCopy;
-  NSSortDescriptor *sectionSorting = sortDescriptors.firstObject;
-  [sortDescriptors removeObject:sectionSorting];
-  
-  [self.sections sortUsingDescriptors:@[ sectionSorting ]];
-  
-  for (id section in self.sections) {
-    NSMutableArray *items = [self.sectionToItemsMapping objectForKey:section];
-    [items sortUsingDescriptors:sortDescriptors];
-  }
 }
 
 - (void)deleteObjectAtIndexPath:(NSIndexPath *)indexPath
@@ -192,8 +185,24 @@
     [self.delegate dataProviderWillUpdate:self];
   }
   
-  NSMutableArray *items = [self.sectionToItemsMapping objectForKey:@(indexPath.section)];
+  id object = [self objectAtIndexPath:indexPath];
+  id section = self.sections[indexPath.section];
+  
+  NSMutableArray *items = [self.sectionToItemsMapping objectForKey:self.sections[indexPath.section]];
   [items removeObjectAtIndex:indexPath.item];
+  
+  if ([self.delegate respondsToSelector:@selector(dataProvider:didChangeObject:atIndexPath:forChangeType:newIndexPath:)]) {
+    [self.delegate dataProvider:self didChangeObject:object atIndexPath:indexPath forChangeType:SPXDataProviderChangeTypeDelete newIndexPath:nil];
+  }
+  
+  if (!items.count && [self.delegate respondsToSelector:@selector(dataProvider:didChangeSection:atIndex:forChangeType:)]) {
+    if (section) {
+      [self.sectionToItemsMapping removeObjectForKey:section];
+      [self.sections removeObjectAtIndex:indexPath.section];
+    }
+    
+    [self.delegate dataProvider:self didChangeSection:nil atIndex:indexPath.section forChangeType:SPXDataProviderChangeTypeDelete];
+  }
   
   if ([self.delegate respondsToSelector:@selector(dataProviderDidUpdate:)]) {
     [self.delegate dataProviderDidUpdate:self];

@@ -31,29 +31,9 @@
 
 
 /**
- *  Defines a deletion handler block
- *
- *  @param objectID The objectID of the NSManagedObject that should be deleted
- */
-typedef void (^SPXCoreDataDeletionHandler)(NSManagedObjectID *objectID);
-
-
-/**
  *  A data provider that binds to CoreData
  */
 @interface SPXCoreDataDataProvider : NSObject <SPXDataProvider>
-
-
-/**
- *  Returns the current configuration applied to this provider. To make changes to this configuration, use -applyConfiguration: below
- */
-@property (nonatomic, readonly) SPXCoreDataConfiguration *configuration;
-
-
-/**
- *  Use this handler to delete your persisted objects from CoreData
- */
-@property (nonatomic, strong) SPXCoreDataDeletionHandler deletionHandler;
 
 
 /**
@@ -72,6 +52,12 @@ typedef void (^SPXCoreDataDeletionHandler)(NSManagedObjectID *objectID);
  *  @param configuration The configuration to apply
  */
 - (void)applyConfiguration:(SPXCoreDataConfiguration *)configuration;
+
+
+/**
+ *  Use this handler to delete your persisted objects from CoreData
+ */
+@property (nonatomic, strong) void (^deletionHandler)(NSIndexPath *indexPath);
 
 
 @end
