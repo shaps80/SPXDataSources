@@ -32,7 +32,7 @@
 /**
  *  A data provider that manages data in an array
  */
-@interface SPXArrayDataProvider : NSObject <SPXDataProvider>
+@interface SPXArrayDataProvider : NSObject <SPXDataProvider, NSCopying>
 
 
 /**

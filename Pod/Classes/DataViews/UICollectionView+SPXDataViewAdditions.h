@@ -50,5 +50,17 @@
 @property (nonatomic, copy) void (^configureViewForItemAtIndexPathBlock)(UICollectionView *collectionView, UICollectionViewCell *cell, id object, NSIndexPath *indexPath);
 
 
+/**
+ *  Returns the calculated size for this item
+ *
+ *  @param indexPath       The indexPath for this item
+ *  @param object          The object associated with this item
+ *  @param reuseIdentifier The reuse identifier for this item
+ *
+ *  @return The calculated size
+ */
+- (CGSize)sizeForItemAtIndexPath:(NSIndexPath *)indexPath object:(id)object reuseIdentifier:(NSString *)reuseIdentifier;
+
+
 @end
 

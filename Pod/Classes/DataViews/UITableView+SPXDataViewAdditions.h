@@ -81,6 +81,18 @@
 @property (nonatomic, copy) void (^moveItemAtSourceIndexPathToDestinationIndexPathBlock)(UITableView *tableView, NSIndexPath *sourceIndexPath, NSIndexPath *destinationIndexPath);
 
 
+/**
+ *  Returns the calculated height for this item
+ *
+ *  @param indexPath       The indexPath for this item
+ *  @param object          The object associated with this item
+ *  @param reuseIdentifier The reuse identifier for this item
+ *
+ *  @return The calculated height
+ */
+- (CGFloat)heightForItemAtIndexPath:(NSIndexPath *)indexPath object:(id)object reuseIdentifier:(NSString *)reuseIdentifier;
+
+
 @end
 
 

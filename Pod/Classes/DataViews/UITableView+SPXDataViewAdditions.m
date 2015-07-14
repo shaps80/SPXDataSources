@@ -26,18 +26,36 @@
 #import "UITableView+SPXDataViewAdditions.h"
 #import <objc/runtime.h>
 
-
-static void *ViewForItemAtIndexPathKey = &ViewForItemAtIndexPathKey;
-static void *ConfigureItemAtIndexPathKey = &ConfigureItemAtIndexPathKey;
-static void *CanMoveItemAtIndexPathKey = &CanMoveItemAtIndexPathKey;
-static void *CanEditItemAtIndexPathKey = &CanEditItemAtIndexPathKey;
-static void *CommitEditingStyleForItemAtIndexPathKey = &CommitEditingStyleForItemAtIndexPathKey;
-static void *TitleForHeaderInSectionKey = &TitleForHeaderInSectionKey;
-static void *TitleForFooterInSectionKey = &TitleForFooterInSectionKey;
-static void *MoveItemAtSourceIndexPathToDestinationIndexPathKey = &MoveItemAtSourceIndexPathToDestinationIndexPathKey;
-
+@interface UITableView (SPXDataViewPrivateAdditions)
+@property (nonatomic, strong) UITableViewCell *prototypeCell;
+@end
 
 @implementation UITableView (SPXDataViewAdditions)
+
+- (UITableViewCell *)prototypeCell
+{
+  return objc_getAssociatedObject(self, @selector(prototypeCell));
+}
+
+- (void)setPrototypeCell:(UITableViewCell *)prototypeCell
+{
+  objc_setAssociatedObject(self, @selector(prototypeCell), prototypeCell, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (id)dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath *)indexPath
+{
+  return [self dequeueReusableCellWithIdentifier:identifier forIndexPath:indexPath];
+}
+
+- (CGFloat)heightForItemAtIndexPath:(NSIndexPath *)indexPath object:(id)object reuseIdentifier:(NSString *)reuseIdentifier
+{
+  if (![self.prototypeCell.reuseIdentifier isEqualToString:reuseIdentifier]) {
+    self.prototypeCell = [self dequeueReusableCellWithIdentifier:reuseIdentifier];
+  }
+  
+  !self.configureViewForItemAtIndexPathBlock ?: self.configureViewForItemAtIndexPathBlock(self, self.prototypeCell, object, indexPath);
+  return [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingExpandedSize].height;
+}
 
 #pragma mark - Updates
 
@@ -137,82 +155,82 @@ static void *MoveItemAtSourceIndexPathToDestinationIndexPathKey = &MoveItemAtSou
 
 - (void)setMoveItemAtSourceIndexPathToDestinationIndexPathBlock:(void (^)(UITableView *, NSIndexPath *, NSIndexPath *))moveItemAtSourceIndexPathToDestinationIndexPathBlock
 {
-  objc_setAssociatedObject(self, &MoveItemAtSourceIndexPathToDestinationIndexPathKey, moveItemAtSourceIndexPathToDestinationIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(moveItemAtSourceIndexPathToDestinationIndexPathBlock), moveItemAtSourceIndexPathToDestinationIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (void (^)(UITableView *, NSIndexPath *, NSIndexPath *))moveItemAtSourceIndexPathToDestinationIndexPathBlock
 {
-  return objc_getAssociatedObject(self, &MoveItemAtSourceIndexPathToDestinationIndexPathKey);
+  return objc_getAssociatedObject(self, @selector(moveItemAtSourceIndexPathToDestinationIndexPathBlock));
 }
 
 - (void)setViewForItemAtIndexPathBlock:(UITableViewCell *(^)(UITableView *tableView, id object, NSIndexPath *indexPath))viewForItemAtIndexPathBlock
 {
-  objc_setAssociatedObject(self, &ViewForItemAtIndexPathKey, viewForItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(viewForItemAtIndexPathBlock), viewForItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (void)setConfigureViewForItemAtIndexPathBlock:(void (^)(UITableView *tableView, UITableViewCell *cell, id object, NSIndexPath *indexPath))configureViewForItemAtIndexPathBlock
 {
-  objc_setAssociatedObject(self, &ConfigureItemAtIndexPathKey, configureViewForItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(configureViewForItemAtIndexPathBlock), configureViewForItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (void)setTitleForHeaderInSectionBlock:(NSString *(^)(UITableView *tableView, NSUInteger section))titleForHeaderInSectionBlock
 {
-  objc_setAssociatedObject(self, &TitleForHeaderInSectionKey, titleForHeaderInSectionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(titleForHeaderInSectionBlock), titleForHeaderInSectionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (void)setTitleForFooterInSectionBlock:(NSString *(^)(UITableView *tableView, NSUInteger section))titleForFooterInSectionBlock
 {
-  objc_setAssociatedObject(self, &TitleForFooterInSectionKey, titleForFooterInSectionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(titleForFooterInSectionBlock), titleForFooterInSectionBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (UITableViewCell *(^)(UITableView *tableView, id object, NSIndexPath *indexPath))viewForItemAtIndexPathBlock
 {
-  return objc_getAssociatedObject(self, &ViewForItemAtIndexPathKey);
+  return objc_getAssociatedObject(self, @selector(viewForItemAtIndexPathBlock));
 }
 
 - (void (^)(UITableView *tableView, UITableViewCell *cell, id object, NSIndexPath *indexPath))configureViewForItemAtIndexPathBlock
 {
-  return objc_getAssociatedObject(self, &ConfigureItemAtIndexPathKey);
+  return objc_getAssociatedObject(self, @selector(configureViewForItemAtIndexPathBlock));
 }
 
 - (NSString *(^)(UITableView *tableView, NSUInteger section))titleForHeaderInSectionBlock
 {
-  return objc_getAssociatedObject(self, &TitleForHeaderInSectionKey);
+  return objc_getAssociatedObject(self, @selector(titleForHeaderInSectionBlock));
 }
 
 - (NSString *(^)(UITableView *tableView, NSUInteger section))titleForFooterInSectionBlock
 {
-  return objc_getAssociatedObject(self, &TitleForFooterInSectionKey);
+  return objc_getAssociatedObject(self, @selector(titleForFooterInSectionBlock));
 }
 
 - (void)setCanMoveItemAtIndexPathBlock:(BOOL (^)(UITableView *, UITableViewCell *, id, NSIndexPath *))canMoveItemAtIndexPathBlock
 {
-  objc_setAssociatedObject(self, &CanMoveItemAtIndexPathKey, canMoveItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(canMoveItemAtIndexPathBlock), canMoveItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (BOOL (^)(UITableView *, UITableViewCell *, id, NSIndexPath *))canMoveItemAtIndexPathBlock
 {
-  return objc_getAssociatedObject(self, &CanMoveItemAtIndexPathKey);
+  return objc_getAssociatedObject(self, @selector(canMoveItemAtIndexPathBlock));
 }
 
 - (void)setCanEditItemAtIndexPathBlock:(BOOL (^)(UITableView *, UITableViewCell *, id, NSIndexPath *))canEditItemAtIndexPathBlock
 {
-  objc_setAssociatedObject(self, &CanEditItemAtIndexPathKey, canEditItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(canEditItemAtIndexPathBlock), canEditItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (BOOL (^)(UITableView *, UITableViewCell *, id, NSIndexPath *))canEditItemAtIndexPathBlock
 {
-  return objc_getAssociatedObject(self, &CanEditItemAtIndexPathKey);
+  return objc_getAssociatedObject(self, @selector(canEditItemAtIndexPathBlock));
 }
 
 - (void)setCommitEditingStyleForItemAtIndexPathBlock:(void (^)(UITableView *, UITableViewCell *, id, NSIndexPath *))commitEditingStyleForItemAtIndexPathBlock
 {
-  objc_setAssociatedObject(self, &CommitEditingStyleForItemAtIndexPathKey, commitEditingStyleForItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(commitEditingStyleForItemAtIndexPathBlock), commitEditingStyleForItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (void (^)(UITableView *, UITableViewCell *, id, NSIndexPath *))commitEditingStyleForItemAtIndexPathBlock
 {
-  return objc_getAssociatedObject(self, &CommitEditingStyleForItemAtIndexPathKey);
+  return objc_getAssociatedObject(self, @selector(commitEditingStyleForItemAtIndexPathBlock));
 }
 
 @end

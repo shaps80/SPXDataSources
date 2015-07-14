@@ -45,7 +45,7 @@
       Person *person = query.whereIdentifier([NSString stringWithFormat:@"%zd", i], YES);
       person.name = [LoremIpsum name];
       person.age = @(arc4random_uniform(3));
-    }).synchronous(YES);
+    });
   }
   
   SPXCoreDataDataProvider *provider = [SPXCoreDataDataProvider providerWithConfiguration:^(SPXCoreDataConfiguration *configuration) {
@@ -71,8 +71,8 @@
     
     stack.transaction(^{
       @stack_copy(person);
-      stack.query(Person.class).deleteObjects(@[ person ]);
-    }).synchronous(YES);
+      stack.deleteObjects(@[ person ]);
+    });
   }];
 }
 

@@ -26,49 +26,67 @@
 #import <objc/runtime.h>
 #import "UICollectionView+SPXDataViewAdditions.h"
 
-
-static void *ViewForItemAtIndexPathKey = &ViewForItemAtIndexPathKey;
-static void *ViewForSupplementaryElementOfKindAtIndexPathKey = &ViewForSupplementaryElementOfKindAtIndexPathKey;
-static void *ConfigureItemAtIndexPathKey = &ConfigureItemAtIndexPathKey;
-
+@interface UICollectionView (SPXDataViewPrivateAdditions)
+@property (nonatomic, strong) UICollectionViewCell *prototypeCell;
+@end
 
 @implementation UICollectionView (SPXDataViewAdditions)
+
+- (UICollectionViewCell *)prototypeCell
+{
+  return objc_getAssociatedObject(self, @selector(prototypeCell));
+}
+
+- (void)setPrototypeCell:(UICollectionViewCell *)prototypeCell
+{
+  objc_setAssociatedObject(self, @selector(prototypeCell), prototypeCell, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+- (CGSize)sizeForItemAtIndexPath:(NSIndexPath *)indexPath object:(id)object reuseIdentifier:(NSString *)reuseIdentifier
+{
+  if (![self.prototypeCell.reuseIdentifier isEqualToString:reuseIdentifier]) {
+    self.prototypeCell = [self dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
+  }
+  
+  !self.configureViewForItemAtIndexPathBlock ?: self.configureViewForItemAtIndexPathBlock(self, self.prototypeCell, object, indexPath);
+  return [self.prototypeCell.contentView systemLayoutSizeFittingSize:UILayoutFittingExpandedSize];
+}
 
 - (void)performBatchUpdates:(void (^)(void))updates
 {
   [self performBatchUpdates:updates completion:nil];
 }
 
-#pragma mark - 
+#pragma mark - Setters/Getters for Blocks
 
 - (void)setViewForItemAtIndexPathBlock:(UICollectionViewCell *(^)(UICollectionView *collectionView, id object, NSIndexPath *indexPath))viewForItemAtIndexPathBlock
 {
-  objc_setAssociatedObject(self, &ViewForItemAtIndexPathKey, viewForItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(viewForItemAtIndexPathBlock), viewForItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (void)setConfigureViewForItemAtIndexPathBlock:(void (^)(UICollectionView *collectionView, UICollectionViewCell *cell, id object, NSIndexPath *indexPath))configureViewForItemAtIndexPathBlock
 {
-  objc_setAssociatedObject(self, &ConfigureItemAtIndexPathKey, configureViewForItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(configureViewForItemAtIndexPathBlock), configureViewForItemAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (void)setViewForSupplementaryElementOfKindAtIndexPathBlock:(UICollectionReusableView *(^)(UICollectionView *, NSString *, NSIndexPath *))viewForSupplementaryElementOfKindAtIndexPathBlock
 {
-  objc_setAssociatedObject(self, &ViewForSupplementaryElementOfKindAtIndexPathKey, viewForSupplementaryElementOfKindAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
+  objc_setAssociatedObject(self, @selector(viewForSupplementaryElementOfKindAtIndexPathBlock), viewForSupplementaryElementOfKindAtIndexPathBlock, OBJC_ASSOCIATION_COPY_NONATOMIC);
 }
 
 - (UICollectionViewCell *(^)(UICollectionView *collectionView, id object, NSIndexPath *indexPath))viewForItemAtIndexPathBlock
 {
-  return objc_getAssociatedObject(self, &ViewForItemAtIndexPathKey);
+  return objc_getAssociatedObject(self, @selector(viewForItemAtIndexPathBlock));
 }
 
 - (void (^)(UICollectionView *collectionView, UICollectionViewCell *cell, id object, NSIndexPath *indexPath))configureViewForItemAtIndexPathBlock
 {
-  return objc_getAssociatedObject(self, &ConfigureItemAtIndexPathKey);
+  return objc_getAssociatedObject(self, @selector(configureViewForItemAtIndexPathBlock));
 }
 
 - (UICollectionReusableView *(^)(UICollectionView *, NSString *, NSIndexPath *))viewForSupplementaryElementOfKindAtIndexPathBlock
 {
-  return objc_getAssociatedObject(self, &ViewForSupplementaryElementOfKindAtIndexPathKey);
+  return objc_getAssociatedObject(self, @selector(viewForSupplementaryElementOfKindAtIndexPathBlock));
 }
 
 @end

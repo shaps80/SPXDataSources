@@ -23,9 +23,53 @@
  ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#import <Foundation/Foundation.h>
 #import "SPXDataService.h"
 
-@interface SPXNetworkDataService : NSObject <SPXPollingDataService>
+
+/**
+ *  This code will be returned in an NSError when you attempt to run a fetch twice on a given service
+ */
+extern NSUInteger const SPXNetworkDataServiceRunningErrorCode;
+
+
+@protocol SPXNetworkDataServiceDelegate;
+
+
+/**
+ *  Defines a network service
+ */
+@interface SPXNetworkDataService : SPXDataService
+
+
+/**
+ *  The URL associated with this service
+ */
+@property (nonatomic, copy, readonly) NSURL *URL;
+
+
+/**
+ *  An error handler block -- can be specified to handle JSON errors, etc...
+ */
+@property (nonatomic, copy) NSError* (^errorHandlerBlock)(NSData *data, NSError *error);
+
+
+/**
+ *  Convenience initializer
+ *
+ *  @param URL The URL for this service
+ *
+ *  @return A new instance
+ */
++ (instancetype)networkServiceForURL:(NSURL *)URL NS_REQUIRES_SUPER;
+
+
+/**
+ *  Performs a fetch for this service
+ *
+ *  @param completion The completion block to execute after this fetch has completed
+ */
+- (void)fetchWithCompletion:(void (^)(id object, NSError *error))completion NS_REQUIRES_SUPER;
+
 
 @end
+

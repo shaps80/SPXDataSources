@@ -38,6 +38,15 @@
 
 @synthesize delegate = _delegate;
 
+- (id)copyWithZone:(NSZone *)zone
+{
+  SPXArrayDataProvider *provider = [self.class new];
+  provider->_configuration = self.configuration;
+  provider->_sectionToItemsMapping = self.sectionToItemsMapping;
+  provider->_sections = self.sections;
+  return provider;
+}
+
 + (instancetype)providerWithConfiguration:(void (^)(SPXArrayDataConfiguration *))configurationBlock
 {
   SPXAssertTrueOrReturnNil(configurationBlock);

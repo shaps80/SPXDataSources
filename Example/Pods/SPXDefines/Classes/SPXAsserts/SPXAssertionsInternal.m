@@ -55,6 +55,11 @@ NSError *_SPXAssertionsErrorMake(NSString *message, Class klass, NSString *metho
   return error;
 }
 
+void SPXAssertLog(NSString *message) {
+#if DEBUG
+  SPXLog(@"%@", message);
+#endif
+}
 
 #endif
 

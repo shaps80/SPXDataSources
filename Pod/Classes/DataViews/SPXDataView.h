@@ -294,4 +294,15 @@ typedef void (^SPXCommitEditingStyleForItemAtIndexPathBlock)(id <SPXDataView> da
 - (NSInteger)numberOfSections;
 
 
+/**
+ *  Dequeues a new view
+ *
+ *  @param identifier The identifier for this view
+ *  @param indexPath  The indexPath where this view will be used
+ *
+ *  @return A new or reused view
+ */
+- (id)dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath*)indexPath;
+
+
 @end

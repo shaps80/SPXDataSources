@@ -24,14 +24,108 @@
  */
 
 #import "SPXNetworkDataService.h"
+#import "SPXDefines.h"
+
+NSUInteger const SPXNetworkDataServiceRunningErrorCode = -111999;
+
+@interface SPXNetworkDataService () <NSURLSessionDataDelegate>
+@property (nonatomic, copy) NSURL *URL;
+@property (nonatomic, strong) NSURLSession *session;
+@property (nonatomic, strong) NSURLSessionDataTask *currentTask;
+@end
 
 @implementation SPXNetworkDataService
 
-@synthesize pollingInterval = _pollingInterval;
-
-- (NSError *)fetch
+- (void)dealloc
 {
-  return nil;
+  [self cancel];
+}
+
++ (instancetype)networkServiceForURL:(NSURL *)URL
+{
+  SPXNetworkDataService *service = [self new];
+  service.URL = URL;
+  return service;
+}
+
+- (NSURLSession *)session
+{
+  return _session ?: ({
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+    _session = session;
+  });
+}
+
+- (void)cancel
+{
+  [self.session invalidateAndCancel];
+  self.currentTask = nil;
+}
+
+- (void)fetchWithCompletion:(void (^)(id object, NSError *error))completion
+{
+  if (self.currentTask) {
+    return;
+  }
+  
+  SPXAssertTrueOrReturn(completion);
+  
+  __weak typeof(self) weakInstance = self;
+  self.currentTask = [self.session dataTaskWithURL:self.URL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    weakInstance.currentTask = nil;
+    NSError *internalError = error ?: [self errorForResponseData:data];
+    
+    if (error && weakInstance.errorHandlerBlock) {
+      internalError = weakInstance.errorHandlerBlock(data, error);
+    }
+    
+    NSInteger code = ((NSHTTPURLResponse *)response).statusCode;
+    
+    if (!internalError && code >= 400) {
+      NSDictionary *userInfo = @
+      { NSLocalizedDescriptionKey : @"Resource Not Found",
+        @"html" : [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]
+      };
+      
+      internalError = [NSError errorWithDomain:@"uk.co.snippex.ios.data_service" code:code userInfo:userInfo];
+    }
+    
+    !completion ?: completion([self objectForResponseData:data], internalError);
+  }];
+  
+  [self.currentTask resume];
+}
+
+- (NSData *)fetch:(NSError *__autoreleasing *)error
+{
+  if (self.currentTask) {
+    if (error) {
+      *error = [NSError errorWithDomain:@"uk.co.snippex.ios.data_service" code:SPXNetworkDataServiceRunningErrorCode userInfo:@{ NSLocalizedDescriptionKey : @"This service is already running, please wait for it to complete before attempting again." }];
+    }
+    
+    return nil;
+  }
+  
+  dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+  
+  __block id internalObject = nil;
+  __block NSError *internalError = nil;
+  
+  [self fetchWithCompletion:^(NSData *data, NSError *error) {
+    internalObject = data;
+    internalError = error;
+    dispatch_semaphore_signal(semaphore);
+  }];
+  
+  dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+  
+  if (internalError) {
+    *error = internalError;
+  }
+  
+  self.currentTask = nil;
+  return internalObject;
 }
 
 @end

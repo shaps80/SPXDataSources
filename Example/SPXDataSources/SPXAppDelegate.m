@@ -49,7 +49,7 @@ static void * AppContext = &AppContext;
     
     for (size_t i = 0; i < count; ++i) {
       NSString *key = [NSString stringWithUTF8String:property_getName(properties[i])];
-      NSLog(@"Added: %@", key);
+//      NSLog(@"Added: %@", key);
       [object addObserver:observer forKeyPath:key options:options context:context];
     }
     

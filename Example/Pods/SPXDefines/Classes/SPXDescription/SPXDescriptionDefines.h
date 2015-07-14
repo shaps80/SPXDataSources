@@ -50,7 +50,7 @@
  *  Provides a better description for use in [object description] -- ideally used with the macro's above.
  *  @param va_list  A variadic list of keyPaths to provide a description for
  */
-#define SPXDescription(...) _SPXDescriptionT(self, __VA_ARGS__)
+#define SPXDescription(...) _SPXDescriptionT(self, ##__VA_ARGS__)
 
 
 /**
@@ -58,7 +58,7 @@
  *  @param target   The target to provide a description for. Useful when you need a description of a 3rd party object
  *  @param va_list  A variadic list of keyPaths to provide a description for
  */
-#define SPXDescriptionT(target, ...) _SPXDescriptionT(target, __VA_ARGS__)
+#define SPXDescriptionT(target, ...) _SPXDescriptionT(target, ##__VA_ARGS__)
 
 
 

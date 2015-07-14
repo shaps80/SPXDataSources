@@ -1,6 +1,6 @@
 # SPXDataSources
 
-[![CI Status](http://img.shields.io/travis/Shaps Mohsenin/SPXDataSources.svg?style=flat)](https://travis-ci.org/Shaps Mohsenin/SPXDataSources)
+[![CI Status](http://img.shields.io/travis/shaps80/SPXDataSources.svg?style=flat)](https://travis-ci.org/shaps80/SPXDataSources)
 [![Version](https://img.shields.io/cocoapods/v/SPXDataSources.svg?style=flat)](http://cocoadocs.org/docsets/SPXDataSources)
 [![License](https://img.shields.io/cocoapods/l/SPXDataSources.svg?style=flat)](http://cocoadocs.org/docsets/SPXDataSources)
 [![Platform](https://img.shields.io/cocoapods/p/SPXDataSources.svg?style=flat)](http://cocoadocs.org/docsets/SPXDataSources)
