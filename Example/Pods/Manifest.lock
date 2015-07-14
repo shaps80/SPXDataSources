@@ -1,0 +1,27 @@
+PODS:
+  - Kiwi (2.3.1)
+  - LoremIpsum (1.0.0)
+  - SPXDataSources (1.2.1):
+    - SPXDefines
+  - SPXDefines (1.2.4)
+  - Stack (0.3.3):
+    - SPXDefines
+
+DEPENDENCIES:
+  - Kiwi
+  - LoremIpsum
+  - SPXDataSources (from `../`)
+  - Stack
+
+EXTERNAL SOURCES:
+  SPXDataSources:
+    :path: ../
+
+SPEC CHECKSUMS:
+  Kiwi: f038a6c61f7a9e4d7766bff5717aa3b3fdb75f55
+  LoremIpsum: 9029c55d36501b2ee0b05cc9ecda11d3a0479160
+  SPXDataSources: 413b95d742d5f3060f48db7585c2415deb56dd4d
+  SPXDefines: 264a8381a08080532d52b041559a6c32af19377b
+  Stack: 90ab75f9584f872d6097a15ca3be5ed94e61b655
+
+COCOAPODS: 0.37.2
