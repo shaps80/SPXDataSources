@@ -30,13 +30,13 @@
 /**
  *  Provides a UIViewController subclass that's designed to work closely with <SPXDataProvider> and <SPXDataView> classes. It provides a separate configuration class along with automatic presentation, dismissal, etc... (ideal for prototyping, but also production ready)
  */
-@interface SPXDataViewController : UIViewController
+@interface SPXDataViewController : UIViewController <UITableViewDelegate>
 
 
 /**
  *  Get/set the <SPXDataView> associated with this controller. You can also set this property via Interface Builder
  */
-@property (nonatomic, strong) IBOutlet UIView <SPXDataView> *dataView;
+@property (nonatomic, weak, readonly) UITableView *tableView;
 
 
 /**
@@ -68,7 +68,8 @@
  *
  *  @param sender The object that performed this method
  */
-- (IBAction)addEntity:(id)sender;
+- (IBAction)addEntity:(id)sender NS_REQUIRES_SUPER;
+- (BOOL)canAddEntity;
 
 
 /**
@@ -122,6 +123,15 @@
 + (instancetype)viewControllerWithConfiguration:(SPXControllerConfiguration *)configuration;
 
 
+- (void)prepareConfiguration:(SPXControllerConfiguration *)configuration;
+- (void)prepareTableView:(UITableView *)tableView NS_REQUIRES_SUPER;
+- (id <SPXDataProvider>)prepareDataProvider;
+- (void)configureDataCoordinator;
+
+- (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath;
+- (void)prepareCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath item:(id)item;
+
+
 @end
 
 
@@ -167,12 +177,6 @@
  *  @return The configured SPXDataViewController instance
  */
 - (SPXDataViewController *)presentViewController:(SPXDataViewController *)controller configuration:(SPXControllerConfiguration *)configuration;
-
-
-/**
- *  By default this does nothing, you can override to prepare additional configuration
- */
-- (void)prepareConfiguration;
 
 
 @end

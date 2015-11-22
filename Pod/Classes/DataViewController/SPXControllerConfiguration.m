@@ -62,11 +62,30 @@
   copy->_preferredStatusBarStyle = self.preferredStatusBarStyle;
   copy->_prefersStatusBarHidden = self.prefersStatusBarHidden;
   copy->_prefersStatusBarHiddenSet = self.prefersStatusBarHiddenSet;
+  copy->_supportsEditing = self.supportsEditing;
   
   return copy;
 }
 
 #pragma mark - Setters
+
+- (void)setTitle:(NSString *)title
+{
+  _title = title;
+  self.controller.title = title;
+}
+
+- (void)setToolBarHidden:(BOOL)toolBarHidden
+{
+  _toolBarHidden = toolBarHidden;
+  self.controller.navigationController.toolbarHidden = toolBarHidden;
+}
+
+- (void)setDataProvider:(id<SPXDataProvider>)dataProvider
+{
+  _dataProvider = dataProvider;
+  [self.dataProvider reloadData];
+}
 
 - (void)setHidesTabBarOnPush:(BOOL)hidesTabBarOnPush
 {

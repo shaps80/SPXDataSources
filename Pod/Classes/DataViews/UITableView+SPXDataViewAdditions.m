@@ -125,7 +125,7 @@
 
 - (void)insertItemsAtIndexPaths:(NSArray *)indexPaths
 {
-  [self insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
+  [self insertRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationFade];
 }
 
 - (void)deleteItemsAtIndexPaths:(NSArray *)indexPaths

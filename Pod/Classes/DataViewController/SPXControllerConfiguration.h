@@ -161,6 +161,9 @@ typedef NS_ENUM(NSInteger, SPXControllerNavItem){
 @property (nonatomic, assign) BOOL supportsPullToRefresh;
 
 
+@property (nonatomic, assign) BOOL supportsEditing;
+
+
 @end
 
 

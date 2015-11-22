@@ -43,52 +43,52 @@
 
 /* Begin PBXFileReference section */
 		4DE569FFFAB69444047AF584 /* SPXDataSources.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = SPXDataSources.podspec; path = ../SPXDataSources.podspec; sourceTree = "<group>"; };
+		5422D4E41C02315800517822 /* SPXDataCoordinator+UICollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SPXDataCoordinator+UICollectionView.h"; sourceTree = "<group>"; };
+		5422D4E51C02315800517822 /* SPXDataCoordinator+UICollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SPXDataCoordinator+UICollectionView.m"; sourceTree = "<group>"; };
+		5422D4E61C02315800517822 /* SPXDataCoordinator+UITableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SPXDataCoordinator+UITableView.h"; sourceTree = "<group>"; };
+		5422D4E71C02315800517822 /* SPXDataCoordinator+UITableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SPXDataCoordinator+UITableView.m"; sourceTree = "<group>"; };
+		5422D4E81C02315800517822 /* SPXDataCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXDataCoordinator.h; sourceTree = "<group>"; };
+		5422D4E91C02315800517822 /* SPXDataCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXDataCoordinator.m; sourceTree = "<group>"; };
+		5422D4EB1C02315800517822 /* SPXArrayConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXArrayConfiguration.h; sourceTree = "<group>"; };
+		5422D4EC1C02315800517822 /* SPXArrayConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXArrayConfiguration.m; sourceTree = "<group>"; };
+		5422D4ED1C02315800517822 /* SPXArrayDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXArrayDataProvider.h; sourceTree = "<group>"; };
+		5422D4EE1C02315800517822 /* SPXArrayDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXArrayDataProvider.m; sourceTree = "<group>"; };
+		5422D4EF1C02315800517822 /* SPXCoreDataConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXCoreDataConfiguration.h; sourceTree = "<group>"; };
+		5422D4F01C02315800517822 /* SPXCoreDataConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXCoreDataConfiguration.m; sourceTree = "<group>"; };
+		5422D4F11C02315800517822 /* SPXCoreDataDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXCoreDataDataProvider.h; sourceTree = "<group>"; };
+		5422D4F21C02315800517822 /* SPXCoreDataDataProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXCoreDataDataProvider.m; sourceTree = "<group>"; };
+		5422D4F31C02315800517822 /* SPXDataProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXDataProvider.h; sourceTree = "<group>"; };
+		5422D4F41C02315800517822 /* SPXDataProviderConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXDataProviderConfiguration.h; sourceTree = "<group>"; };
+		5422D4F51C02315800517822 /* SPXDataProviderConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXDataProviderConfiguration.m; sourceTree = "<group>"; };
+		5422D4F61C02315800517822 /* SPXDataProviderSectionInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXDataProviderSectionInfo.h; sourceTree = "<group>"; };
+		5422D4F71C02315800517822 /* SPXDataProviderSectionInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXDataProviderSectionInfo.m; sourceTree = "<group>"; };
+		5422D4F91C02315800517822 /* SPXDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXDataService.h; sourceTree = "<group>"; };
+		5422D4FA1C02315800517822 /* SPXDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXDataService.m; sourceTree = "<group>"; };
+		5422D4FB1C02315800517822 /* SPXNetworkDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXNetworkDataService.h; sourceTree = "<group>"; };
+		5422D4FC1C02315800517822 /* SPXNetworkDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXNetworkDataService.m; sourceTree = "<group>"; };
+		5422D4FD1C02315800517822 /* SPXPollingNetworkDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXPollingNetworkDataService.h; sourceTree = "<group>"; };
+		5422D4FE1C02315800517822 /* SPXPollingNetworkDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXPollingNetworkDataService.m; sourceTree = "<group>"; };
+		5422D5001C02315800517822 /* SPXControllerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXControllerConfiguration.h; sourceTree = "<group>"; };
+		5422D5011C02315800517822 /* SPXControllerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXControllerConfiguration.m; sourceTree = "<group>"; };
+		5422D5021C02315800517822 /* SPXDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXDataViewController.h; sourceTree = "<group>"; };
+		5422D5031C02315800517822 /* SPXDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXDataViewController.m; sourceTree = "<group>"; };
+		5422D5051C02315800517822 /* SPXDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXDataView.h; sourceTree = "<group>"; };
+		5422D5061C02315800517822 /* UICollectionView+SPXDataViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+SPXDataViewAdditions.h"; sourceTree = "<group>"; };
+		5422D5071C02315800517822 /* UICollectionView+SPXDataViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+SPXDataViewAdditions.m"; sourceTree = "<group>"; };
+		5422D5081C02315800517822 /* UITableView+SPXDataViewAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SPXDataViewAdditions.h"; sourceTree = "<group>"; };
+		5422D5091C02315800517822 /* UITableView+SPXDataViewAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SPXDataViewAdditions.m"; sourceTree = "<group>"; };
+		5422D50A1C02315800517822 /* SPXDataSources.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXDataSources.h; sourceTree = "<group>"; };
 		54A8EFF91AB099640033226A /* CoreDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataViewController.h; sourceTree = "<group>"; };
 		54A8EFFA1AB099640033226A /* CoreDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoreDataViewController.m; sourceTree = "<group>"; };
 		54A8F0021AB0A4240033226A /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
 		54A8F0031AB0A4240033226A /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
-		54BC1A8F1B55322E009A77CC /* SPXControllerConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXControllerConfiguration.h; sourceTree = "<group>"; };
-		54BC1A901B55322E009A77CC /* SPXControllerConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXControllerConfiguration.m; sourceTree = "<group>"; };
-		54BC1A911B55322E009A77CC /* SPXDataViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXDataViewController.h; sourceTree = "<group>"; };
-		54BC1A921B55322E009A77CC /* SPXDataViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXDataViewController.m; sourceTree = "<group>"; };
 		54BC1A951B554ADE009A77CC /* SPXViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXViewController.h; sourceTree = "<group>"; };
 		54BC1A961B554ADE009A77CC /* SPXViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXViewController.m; sourceTree = "<group>"; };
-		54BC1A9B1B5560D8009A77CC /* SPXDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXDataService.h; sourceTree = "<group>"; };
-		54BC1A9C1B5560D8009A77CC /* SPXDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXDataService.m; sourceTree = "<group>"; };
-		54BC1A9E1B556108009A77CC /* SPXNetworkDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXNetworkDataService.h; sourceTree = "<group>"; };
-		54BC1A9F1B556108009A77CC /* SPXNetworkDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXNetworkDataService.m; sourceTree = "<group>"; };
-		54BC1AA11B556118009A77CC /* SPXPollingNetworkDataService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXPollingNetworkDataService.h; sourceTree = "<group>"; };
-		54BC1AA21B556118009A77CC /* SPXPollingNetworkDataService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXPollingNetworkDataService.m; sourceTree = "<group>"; };
 		54BC1AA81B5569CD009A77CC /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		54BC1AAA1B5597F9009A77CC /* ArrayPollingService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrayPollingService.h; sourceTree = "<group>"; };
 		54BC1AAB1B5597F9009A77CC /* ArrayPollingService.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrayPollingService.m; sourceTree = "<group>"; };
 		54BC1AAD1B55B115009A77CC /* SPXTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPXTableViewCell.h; sourceTree = "<group>"; };
 		54BC1AAE1B55B115009A77CC /* SPXTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPXTableViewCell.m; sourceTree = "<group>"; };
-		54E0530A1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SPXDataCoordinator+UICollectionView.h"; sourceTree = "<group>"; };
-		54E0530B1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SPXDataCoordinator+UICollectionView.m"; sourceTree = "<group>"; };
-		54E0530C1A85838D00B01B07 /* SPXDataCoordinator+UITableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SPXDataCoordinator+UITableView.h"; sourceTree = "<group>"; };
-		54E0530D1A85838D00B01B07 /* SPXDataCoordinator+UITableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "SPXDataCoordinator+UITableView.m"; sourceTree = "<group>"; };
-		54E0530E1A85838D00B01B07 /* SPXDataCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXDataCoordinator.h; sourceTree = "<group>"; };
-		54E0530F1A85838D00B01B07 /* SPXDataCoordinator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPXDataCoordinator.m; sourceTree = "<group>"; };
-		54E053111A85838D00B01B07 /* SPXArrayConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXArrayConfiguration.h; sourceTree = "<group>"; };
-		54E053121A85838D00B01B07 /* SPXArrayConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPXArrayConfiguration.m; sourceTree = "<group>"; };
-		54E053131A85838D00B01B07 /* SPXArrayDataProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXArrayDataProvider.h; sourceTree = "<group>"; };
-		54E053141A85838D00B01B07 /* SPXArrayDataProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPXArrayDataProvider.m; sourceTree = "<group>"; };
-		54E053151A85838D00B01B07 /* SPXCoreDataConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXCoreDataConfiguration.h; sourceTree = "<group>"; };
-		54E053161A85838D00B01B07 /* SPXCoreDataConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPXCoreDataConfiguration.m; sourceTree = "<group>"; };
-		54E053171A85838D00B01B07 /* SPXCoreDataDataProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXCoreDataDataProvider.h; sourceTree = "<group>"; };
-		54E053181A85838D00B01B07 /* SPXCoreDataDataProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPXCoreDataDataProvider.m; sourceTree = "<group>"; };
-		54E053191A85838D00B01B07 /* SPXDataProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXDataProvider.h; sourceTree = "<group>"; };
-		54E0531A1A85838D00B01B07 /* SPXDataProviderConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXDataProviderConfiguration.h; sourceTree = "<group>"; };
-		54E0531B1A85838D00B01B07 /* SPXDataProviderConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPXDataProviderConfiguration.m; sourceTree = "<group>"; };
-		54E0531C1A85838D00B01B07 /* SPXDataProviderSectionInfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXDataProviderSectionInfo.h; sourceTree = "<group>"; };
-		54E0531D1A85838D00B01B07 /* SPXDataProviderSectionInfo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SPXDataProviderSectionInfo.m; sourceTree = "<group>"; };
-		54E0531F1A85838D00B01B07 /* SPXDataView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXDataView.h; sourceTree = "<group>"; };
-		54E053201A85838D00B01B07 /* UICollectionView+SPXDataViewAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UICollectionView+SPXDataViewAdditions.h"; sourceTree = "<group>"; };
-		54E053211A85838D00B01B07 /* UICollectionView+SPXDataViewAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UICollectionView+SPXDataViewAdditions.m"; sourceTree = "<group>"; };
-		54E053221A85838D00B01B07 /* UITableView+SPXDataViewAdditions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UITableView+SPXDataViewAdditions.h"; sourceTree = "<group>"; };
-		54E053231A85838D00B01B07 /* UITableView+SPXDataViewAdditions.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SPXDataViewAdditions.m"; sourceTree = "<group>"; };
-		54E053251A8583F900B01B07 /* SPXDataSources.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPXDataSources.h; sourceTree = "<group>"; };
 		6003F58A195388D20070C39A /* SPXDataSources.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SPXDataSources.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6003F58D195388D20070C39A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		6003F58F195388D20070C39A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -145,85 +145,85 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5429E91B1AB094AC00E92759 /* DataServices */ = {
+		5422D4E21C02315800517822 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				54BC1A9B1B5560D8009A77CC /* SPXDataService.h */,
-				54BC1A9C1B5560D8009A77CC /* SPXDataService.m */,
-				54BC1A9E1B556108009A77CC /* SPXNetworkDataService.h */,
-				54BC1A9F1B556108009A77CC /* SPXNetworkDataService.m */,
-				54BC1AA11B556118009A77CC /* SPXPollingNetworkDataService.h */,
-				54BC1AA21B556118009A77CC /* SPXPollingNetworkDataService.m */,
-			);
-			path = DataServices;
-			sourceTree = "<group>";
-		};
-		54BC1A8E1B55322E009A77CC /* DataViewController */ = {
-			isa = PBXGroup;
-			children = (
-				54BC1A911B55322E009A77CC /* SPXDataViewController.h */,
-				54BC1A921B55322E009A77CC /* SPXDataViewController.m */,
-				54BC1A8F1B55322E009A77CC /* SPXControllerConfiguration.h */,
-				54BC1A901B55322E009A77CC /* SPXControllerConfiguration.m */,
-			);
-			path = DataViewController;
-			sourceTree = "<group>";
-		};
-		54E053081A85833700B01B07 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				54E053251A8583F900B01B07 /* SPXDataSources.h */,
-				5429E91B1AB094AC00E92759 /* DataServices */,
-				54E053091A85838D00B01B07 /* DataCoordinator */,
-				54E053101A85838D00B01B07 /* DataProviders */,
-				54E0531E1A85838D00B01B07 /* DataViews */,
-				54BC1A8E1B55322E009A77CC /* DataViewController */,
+				5422D4E31C02315800517822 /* DataCoordinator */,
+				5422D4EA1C02315800517822 /* DataProviders */,
+				5422D4F81C02315800517822 /* DataServices */,
+				5422D4FF1C02315800517822 /* DataViewController */,
+				5422D5041C02315800517822 /* DataViews */,
+				5422D50A1C02315800517822 /* SPXDataSources.h */,
 			);
 			name = Classes;
 			path = ../Pod/Classes;
 			sourceTree = "<group>";
 		};
-		54E053091A85838D00B01B07 /* DataCoordinator */ = {
+		5422D4E31C02315800517822 /* DataCoordinator */ = {
 			isa = PBXGroup;
 			children = (
-				54E0530E1A85838D00B01B07 /* SPXDataCoordinator.h */,
-				54E0530F1A85838D00B01B07 /* SPXDataCoordinator.m */,
-				54E0530C1A85838D00B01B07 /* SPXDataCoordinator+UITableView.h */,
-				54E0530D1A85838D00B01B07 /* SPXDataCoordinator+UITableView.m */,
-				54E0530A1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.h */,
-				54E0530B1A85838D00B01B07 /* SPXDataCoordinator+UICollectionView.m */,
+				5422D4E41C02315800517822 /* SPXDataCoordinator+UICollectionView.h */,
+				5422D4E51C02315800517822 /* SPXDataCoordinator+UICollectionView.m */,
+				5422D4E61C02315800517822 /* SPXDataCoordinator+UITableView.h */,
+				5422D4E71C02315800517822 /* SPXDataCoordinator+UITableView.m */,
+				5422D4E81C02315800517822 /* SPXDataCoordinator.h */,
+				5422D4E91C02315800517822 /* SPXDataCoordinator.m */,
 			);
 			path = DataCoordinator;
 			sourceTree = "<group>";
 		};
-		54E053101A85838D00B01B07 /* DataProviders */ = {
+		5422D4EA1C02315800517822 /* DataProviders */ = {
 			isa = PBXGroup;
 			children = (
-				54E053191A85838D00B01B07 /* SPXDataProvider.h */,
-				54E053111A85838D00B01B07 /* SPXArrayConfiguration.h */,
-				54E053121A85838D00B01B07 /* SPXArrayConfiguration.m */,
-				54E053131A85838D00B01B07 /* SPXArrayDataProvider.h */,
-				54E053141A85838D00B01B07 /* SPXArrayDataProvider.m */,
-				54E053151A85838D00B01B07 /* SPXCoreDataConfiguration.h */,
-				54E053161A85838D00B01B07 /* SPXCoreDataConfiguration.m */,
-				54E053171A85838D00B01B07 /* SPXCoreDataDataProvider.h */,
-				54E053181A85838D00B01B07 /* SPXCoreDataDataProvider.m */,
-				54E0531A1A85838D00B01B07 /* SPXDataProviderConfiguration.h */,
-				54E0531B1A85838D00B01B07 /* SPXDataProviderConfiguration.m */,
-				54E0531C1A85838D00B01B07 /* SPXDataProviderSectionInfo.h */,
-				54E0531D1A85838D00B01B07 /* SPXDataProviderSectionInfo.m */,
+				5422D4EB1C02315800517822 /* SPXArrayConfiguration.h */,
+				5422D4EC1C02315800517822 /* SPXArrayConfiguration.m */,
+				5422D4ED1C02315800517822 /* SPXArrayDataProvider.h */,
+				5422D4EE1C02315800517822 /* SPXArrayDataProvider.m */,
+				5422D4EF1C02315800517822 /* SPXCoreDataConfiguration.h */,
+				5422D4F01C02315800517822 /* SPXCoreDataConfiguration.m */,
+				5422D4F11C02315800517822 /* SPXCoreDataDataProvider.h */,
+				5422D4F21C02315800517822 /* SPXCoreDataDataProvider.m */,
+				5422D4F31C02315800517822 /* SPXDataProvider.h */,
+				5422D4F41C02315800517822 /* SPXDataProviderConfiguration.h */,
+				5422D4F51C02315800517822 /* SPXDataProviderConfiguration.m */,
+				5422D4F61C02315800517822 /* SPXDataProviderSectionInfo.h */,
+				5422D4F71C02315800517822 /* SPXDataProviderSectionInfo.m */,
 			);
 			path = DataProviders;
 			sourceTree = "<group>";
 		};
-		54E0531E1A85838D00B01B07 /* DataViews */ = {
+		5422D4F81C02315800517822 /* DataServices */ = {
 			isa = PBXGroup;
 			children = (
-				54E0531F1A85838D00B01B07 /* SPXDataView.h */,
-				54E053201A85838D00B01B07 /* UICollectionView+SPXDataViewAdditions.h */,
-				54E053211A85838D00B01B07 /* UICollectionView+SPXDataViewAdditions.m */,
-				54E053221A85838D00B01B07 /* UITableView+SPXDataViewAdditions.h */,
-				54E053231A85838D00B01B07 /* UITableView+SPXDataViewAdditions.m */,
+				5422D4F91C02315800517822 /* SPXDataService.h */,
+				5422D4FA1C02315800517822 /* SPXDataService.m */,
+				5422D4FB1C02315800517822 /* SPXNetworkDataService.h */,
+				5422D4FC1C02315800517822 /* SPXNetworkDataService.m */,
+				5422D4FD1C02315800517822 /* SPXPollingNetworkDataService.h */,
+				5422D4FE1C02315800517822 /* SPXPollingNetworkDataService.m */,
+			);
+			path = DataServices;
+			sourceTree = "<group>";
+		};
+		5422D4FF1C02315800517822 /* DataViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5422D5001C02315800517822 /* SPXControllerConfiguration.h */,
+				5422D5011C02315800517822 /* SPXControllerConfiguration.m */,
+				5422D5021C02315800517822 /* SPXDataViewController.h */,
+				5422D5031C02315800517822 /* SPXDataViewController.m */,
+			);
+			path = DataViewController;
+			sourceTree = "<group>";
+		};
+		5422D5041C02315800517822 /* DataViews */ = {
+			isa = PBXGroup;
+			children = (
+				5422D5051C02315800517822 /* SPXDataView.h */,
+				5422D5061C02315800517822 /* UICollectionView+SPXDataViewAdditions.h */,
+				5422D5071C02315800517822 /* UICollectionView+SPXDataViewAdditions.m */,
+				5422D5081C02315800517822 /* UITableView+SPXDataViewAdditions.h */,
+				5422D5091C02315800517822 /* UITableView+SPXDataViewAdditions.m */,
 			);
 			path = DataViews;
 			sourceTree = "<group>";
@@ -231,7 +231,7 @@
 		6003F581195388D10070C39A = {
 			isa = PBXGroup;
 			children = (
-				54E053081A85833700B01B07 /* Classes */,
+				5422D4E21C02315800517822 /* Classes */,
 				60FF7A9C1954A5C5007DD14C /* Podspec Metadata */,
 				6003F593195388D20070C39A /* SPXDataSources */,
 				6003F5B5195388D20070C39A /* Tests */,
@@ -388,7 +388,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = SPX;
-				LastUpgradeCheck = 0510;
+				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Shaps Mohsenin";
 				TargetAttributes = {
 					6003F5AD195388D20070C39A = {
@@ -588,6 +588,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -651,6 +652,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SPXDataSources/SPXDataSources-Prefix.pch";
 				INFOPLIST_FILE = "SPXDataSources/SPXDataSources-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -665,6 +667,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "SPXDataSources/SPXDataSources-Prefix.pch";
 				INFOPLIST_FILE = "SPXDataSources/SPXDataSources-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -687,6 +690,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
@@ -706,6 +710,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Tests/Tests-Prefix.pch";
 				INFOPLIST_FILE = "Tests/Tests-Info.plist";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;

@@ -65,6 +65,12 @@
 
 - (void)addEntity:(id)sender
 {
+  [super addEntity:sender];
+  
+  if (![self canAddEntity]) {
+    return;
+  }
+  
   SPXControllerConfiguration *config = self.configuration.copy;
   config.presentationStyle = SPXControllerPresentationStyleModalDismissOnSelection;
   config.rightNavItem = SPXControllerNavItemNone;
@@ -72,7 +78,7 @@
   
   SPXDataViewController *controller = [self presentViewControllerWithConfiguration:config];
   
-  [controller.dataView setConfigureViewForItemAtIndexPathBlock:^(UITableView *tableView, UITableViewCell *cell, id object, NSIndexPath *indexPath) {
+  [controller.tableView setConfigureViewForItemAtIndexPathBlock:^(UITableView *tableView, UITableViewCell *cell, id object, NSIndexPath *indexPath) {
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     cell.textLabel.text = [object description];
   }];

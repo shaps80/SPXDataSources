@@ -37,6 +37,7 @@
 
 @interface SPXDataViewController () <UITableViewDelegate, UICollectionViewDelegate>
 
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) SPXDataCoordinator *dataCoordinator;
 @property (nonatomic, strong) IBOutlet UIRefreshControl *refreshControl;
 
@@ -50,28 +51,13 @@
 
 - (void)loadView
 {
-  [super loadView];
-  
   if (!self.configuration) {
     self.configuration = [SPXControllerConfiguration new];
   }
   
-  [self prepareConfiguration];
-  
-  UIView *view = super.view;
-  
-  if (![self.view conformsToProtocol:@protocol(SPXDataView)]) {
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    tableView.delegate = self;
-    view = tableView;
-  }
-  
-  self.view = view;
-}
-
-- (UIView<SPXDataView> *)dataView
-{
-  return (UIView <SPXDataView>*)self.view;
+  self.configuration.supportsEditing = NO;
+  [self prepareConfiguration:self.configuration];
+  [super loadView];
 }
 
 - (void)viewDidLoad
@@ -80,20 +66,45 @@
   
   self.title = self.configuration.title;
   
-  if (self.configuration.supportsPullToRefresh && !self.refreshControl) {
-    self.refreshControl = [UIRefreshControl new];
-    [self.dataView addSubview:self.refreshControl];
-    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+  [self prepareTableView:self.tableView];
+  
+  if (self.configuration.supportsPullToRefresh) {
+    [self.tableView addSubview:self.refreshControl];
   }
   
-  if (self.configuration.dataProvider) {
-    self.dataCoordinator = [SPXDataCoordinator coordinatorForDataView:self.dataView dataProvider:self.configuration.dataProvider];
+  [self configureDataCoordinator];
+}
+
+- (void)configureDataCoordinator
+{
+  self.configuration.dataProvider = [self prepareDataProvider];
+  self.dataCoordinator = [SPXDataCoordinator coordinatorForDataView:self.tableView dataProvider:self.configuration.dataProvider];
+}
+
+- (UIRefreshControl *)refreshControl
+{
+  if (_refreshControl) {
+    return _refreshControl;
   }
+  
+  _refreshControl = [UIRefreshControl new];
+  [_refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+  
+  return _refreshControl;
+}
+
+- (id <SPXDataProvider>)prepareDataProvider
+{
+  // implement in subclass
+  return nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
   [super viewWillAppear:animated];
+  
+  [self.tableView reloadData];
+  [self refresh:nil];
   
   [self.navigationController setNavigationBarHidden:self.configuration.navigationBarHidden animated:YES];
   
@@ -106,7 +117,7 @@
   }
   
   if (self.selectedIndexPath) {
-    [self.dataView selectItemAtIndexPath:self.selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
+    [self.tableView selectItemAtIndexPath:self.selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
   }
 }
 
@@ -128,6 +139,11 @@
 }
 
 #pragma mark - Actions
+
+- (BOOL)canAddEntity
+{
+  return YES;
+}
 
 - (void)addEntity:(id)sender
 {
@@ -172,7 +188,7 @@
   return self.configuration.prefersStatusBarHidden;
 }
 
-- (NSUInteger)supportedInterfaceOrientations
+- (UIInterfaceOrientationMask)supportedInterfaceOrientations
 {
   return self.configuration.supportedInterfaceOrientations;
 }
@@ -183,6 +199,12 @@
 }
 
 #pragma mark - TableView Delegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+  id object = [self.dataCoordinator.dataProvider objectAtIndexPath:indexPath];
+  return [tableView heightForItemAtIndexPath:indexPath object:object reuseIdentifier:[self cellIdentifierForIndexPath:indexPath]];
+}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -197,7 +219,7 @@
 - (void)selectIndexPath:(NSIndexPath *)indexPath userInitiated:(BOOL)userInitiated
 {
   self.selectedIndexPath = indexPath;
-  [self.dataView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+  [self.tableView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
   
   id item = [self.dataCoordinator.dataProvider objectAtIndexPath:indexPath];
   !self.selectionBlock ?: self.selectionBlock(item, indexPath);
@@ -235,14 +257,59 @@
   return controller;
 }
 
+- (void)prepareTableView:(UITableView *)tableView
+{
+  __weak typeof(self) weakInstance = self;
+  
+  if (self.configuration.supportsPullToRefresh && !self.refreshControl) {
+    self.refreshControl = [UIRefreshControl new];
+    [self.tableView addSubview:self.refreshControl];
+    [self.refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+  }
+  
+  if (self.configuration.supportsEditing && !self.navigationItem.leftBarButtonItem) {
+    self.navigationItem.leftBarButtonItem = self.editButtonItem;
+  }
+  
+  [self.tableView setViewForItemAtIndexPathBlock:^UITableViewCell *(UITableView *tableView, id object, NSIndexPath *indexPath) {
+    return [tableView dequeueReusableCellWithIdentifier:[weakInstance cellIdentifierForIndexPath:indexPath] forIndexPath:indexPath];
+  }];
+  
+  [self.tableView setConfigureViewForItemAtIndexPathBlock:^(UITableView *tableView, UITableViewCell *cell, id object, NSIndexPath *indexPath) {
+    [weakInstance prepareCell:cell atIndexPath:indexPath item:object];
+  }];
+  
+  [tableView setCanEditItemAtIndexPathBlock:^BOOL(UITableView *tableView, UITableViewCell *cell, id object, NSIndexPath *indexPath) {
+    return weakInstance.configuration.supportsEditing;
+  }];
+  
+  [tableView setCanMoveItemAtIndexPathBlock:^BOOL(UITableView *tableView, UITableViewCell *cell, id object, NSIndexPath *indexPath) {
+    return NO;
+  }];
+  
+  [tableView setCommitEditingStyleForItemAtIndexPathBlock:^(UITableView *tableView, UITableViewCell *cell, id object, NSIndexPath *indexPath) {
+    [weakInstance.dataCoordinator.dataProvider deleteObjectAtIndexPath:indexPath];
+  }];
+}
+
+- (void)prepareConfiguration:(SPXControllerConfiguration *)configuration
+{
+  // implement in subclass
+}
+
+- (NSString *)cellIdentifierForIndexPath:(NSIndexPath *)indexPath
+{
+  return @"cell";
+}
+
+- (void)prepareCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath item:(id)item
+{
+  // implement in subclass
+}
+
 @end
 
 @implementation UIViewController (SPXControllerAdditions)
-
-- (void)prepareConfiguration
-{
-  
-}
 
 - (SPXControllerConfiguration *)configuration
 {

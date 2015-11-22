@@ -160,7 +160,7 @@
   if (self.configuration.sortDescriptors) {
     NSMutableArray *sorting = self.configuration.sortDescriptors.mutableCopy;
     
-    if (![[self.configuration.sortDescriptors.firstObject key] isEqualToString:self.configuration.sectionNameKeyPath]) {
+    if (self.configuration.sectionNameKeyPath.length && ![[self.configuration.sortDescriptors.firstObject key] isEqualToString:self.configuration.sectionNameKeyPath]) {
       [sorting insertObject:[NSSortDescriptor sortDescriptorWithKey:self.configuration.sectionNameKeyPath ascending:YES] atIndex:0];
     }
     
