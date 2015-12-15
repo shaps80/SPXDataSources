@@ -143,7 +143,9 @@
 
 - (void)selectItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated scrollPosition:(UITableViewScrollPosition)scrollPosition
 {
-  [self selectRowAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
+  if (indexPath.section < [self numberOfSections] && indexPath.item < [self numberOfItemsInSection:indexPath.section]) {
+    [self selectRowAtIndexPath:indexPath animated:animated scrollPosition:scrollPosition];
+  }
 }
 
 - (void)deselectItemAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated

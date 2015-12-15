@@ -39,18 +39,58 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-  return self.dataProvider.numberOfSections;
+  NSInteger count = self.dataProvider.numberOfSections;
+  
+  if ([self.dataSource respondsToSelector:@selector(coordinator:numberOfSectionsWithProposedCount:)]) {
+    count =  [self.dataSource coordinator:self numberOfSectionsWithProposedCount:count];
+  }
+  
+  return count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-  return [self.dataProvider numberOfItemsInSection:section];
+  NSInteger count = 0;
+  
+  if (section < [self.dataProvider numberOfSections]) {
+    count = [self.dataProvider numberOfItemsInSection:section];
+  }
+  
+  if ([self.dataSource respondsToSelector:@selector(coordinator:numberOfItemsInSection:withProposedCount:)]) {
+    count = [self.dataSource coordinator:self numberOfItemsInSection:section withProposedCount:count];
+  }
+  
+  return count;
+}
+
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath
+{
+  id object = nil;
+  
+  if ([self.dataSource respondsToSelector:@selector(coordinator:objectForIndexPath:)]) {
+    object = [self.dataSource coordinator:self objectForIndexPath:indexPath];
+  }
+  
+  if (indexPath.section < [self.dataProvider numberOfSections] && indexPath.item < [self.dataProvider numberOfItemsInSection:indexPath.section]) {
+    object = [self.dataProvider objectAtIndexPath:indexPath];
+  }
+  
+  return object;
+}
+
+- (NSString *)sectionNameForSection:(NSInteger)section
+{
+  if (section > [self.dataProvider numberOfSections]) {
+    return [self.dataProvider sectionNameForSection:section];
+  }
+  
+  return @"";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
   UITableViewCell *cell = nil;
-  id object = [self.dataProvider objectAtIndexPath:indexPath];
+  id object = [self objectAtIndexPath:indexPath];
   
   if (!tableView.viewForItemAtIndexPathBlock) {
     cell = [tableView dequeueReusableCellWithIdentifier:SPXDataViewViewReuseIdentifier];
@@ -85,7 +125,7 @@
 {
   if (editingStyle == UITableViewCellEditingStyleDelete) {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    id object = [self.dataProvider objectAtIndexPath:indexPath];
+    id object = [self objectAtIndexPath:indexPath];
     
     if (tableView.commitEditingStyleForItemAtIndexPathBlock) {
       // if we have defined a commit block, then its callers responsibility to perform actual deletion!
@@ -93,6 +133,11 @@
       return;
     }
 
+    if (self.dataSource) {
+      // auto delete is not supported when you're providing your own dataSource
+      return;
+    }
+    
     // otherwise, lets do it for them as a convenience ;)
     [self.dataProvider deleteObjectAtIndexPath:indexPath];
     !tableView.commitEditingStyleForItemAtIndexPathBlock ?: tableView.commitEditingStyleForItemAtIndexPathBlock(tableView, cell, object, indexPath);
@@ -105,7 +150,7 @@
   
   if (tableView.canEditItemAtIndexPathBlock) {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    id object = [self.dataProvider objectAtIndexPath:indexPath];
+    id object = [self objectAtIndexPath:indexPath];
     return tableView.canEditItemAtIndexPathBlock(tableView, cell, object, indexPath);
   }
   
@@ -118,7 +163,7 @@
   
   if (tableView.canMoveItemAtIndexPathBlock) {
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    id object = [self.dataProvider objectAtIndexPath:indexPath];
+    id object = [self objectAtIndexPath:indexPath];
     return tableView.canMoveItemAtIndexPathBlock(tableView, cell, object, indexPath);
   }
   
@@ -135,7 +180,7 @@
   }
   
   if (!title) {
-    title = [self.dataProvider sectionNameForSection:section];
+    title = [self sectionNameForSection:section];
   }
   
   if ([title isEqualToString:@"<null>"]) {

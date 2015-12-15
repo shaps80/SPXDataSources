@@ -35,9 +35,9 @@
 @property (nonatomic, strong) SPXControllerConfiguration *configuration;
 @end
 
-@interface SPXDataViewController () <UITableViewDelegate, UICollectionViewDelegate>
+@interface SPXDataViewController () <UITableViewDelegate, UICollectionViewDelegate, SPXDataCoordinatorDataSource>
 
-@property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, strong) IBOutlet id <SPXDataView> dataView;
 @property (nonatomic, strong) SPXDataCoordinator *dataCoordinator;
 @property (nonatomic, strong) IBOutlet UIRefreshControl *refreshControl;
 
@@ -79,6 +79,7 @@
 {
   self.configuration.dataProvider = [self prepareDataProvider];
   self.dataCoordinator = [SPXDataCoordinator coordinatorForDataView:self.tableView dataProvider:self.configuration.dataProvider];
+  self.dataCoordinator.dataSource = self;
 }
 
 - (UIRefreshControl *)refreshControl
@@ -119,6 +120,11 @@
   if (self.selectedIndexPath) {
     [self.tableView selectItemAtIndexPath:self.selectedIndexPath animated:NO scrollPosition:UITableViewScrollPositionTop];
   }
+  
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.12 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [self.tableView deselectItemAtIndexPath:self.tableView.indexPathForSelectedRow animated:animated];
+    self.selectedIndexPath = nil;
+  });
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -219,7 +225,9 @@
 - (void)selectIndexPath:(NSIndexPath *)indexPath userInitiated:(BOOL)userInitiated
 {
   self.selectedIndexPath = indexPath;
-  [self.tableView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+  if (!userInitiated) {
+    [self.tableView selectItemAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
+  }
   
   id item = [self.dataCoordinator.dataProvider objectAtIndexPath:indexPath];
   !self.selectionBlock ?: self.selectionBlock(item, indexPath);

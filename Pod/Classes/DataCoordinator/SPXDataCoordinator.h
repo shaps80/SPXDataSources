@@ -33,6 +33,7 @@
 extern NSString * const SPXDataViewViewReuseIdentifier;
 
 @protocol SPXDataCoordinatorDelegate;
+@protocol SPXDataCoordinatorDataSource;
 
 
 /**
@@ -51,6 +52,12 @@ extern NSString * const SPXDataViewViewReuseIdentifier;
  *    }
  */
 @interface SPXDataCoordinator : NSObject
+
+
+/**
+ *  Gets/sets an optional dataSource for this coordinator
+ */
+@property (nonatomic, weak) id <SPXDataCoordinatorDataSource> dataSource;
 
 
 /**
@@ -81,7 +88,6 @@ extern NSString * const SPXDataViewViewReuseIdentifier;
  */
 + (instancetype)coordinatorForDataView:(id <SPXDataView>)dataView dataProvider:(id <SPXDataProvider>)dataProvider;
 
-
 @end
 
 
@@ -101,4 +107,49 @@ extern NSString * const SPXDataViewViewReuseIdentifier;
 
 
 @end
+
+
+@protocol SPXDataCoordinatorDataSource <NSObject>
+
+@optional
+
+
+/**
+ *  Returns the number of sections this coordinator should contain. This gives you the ability to hide certain sections or add additional ones that you will need to manage yourself.
+ *
+ *  @param coordinator      The coordinator owning this dataSource
+ *  @param numberOfSections The proposed number of sections (This is the result of [self.dataProvider numberOfSections])
+ *
+ *  @return The number of sections
+ */
+- (NSInteger)coordinator:(SPXDataCoordinator *)coordinator numberOfSectionsWithProposedCount:(NSInteger)numberOfSections;
+
+
+/**
+ *  Returns the number of items this coordinator should contain in the specified section. This gives you the ability to hide certain items or add additional ones that you will need to manage yourself.
+ *
+ *  @param coordinator   The coordinator owning this dataSource
+ *  @param section       The section these items will appear in
+ *  @param numberOfItems The proposed number of items (this is the result of [self.dataProvider numberOfItemsInSection:section]
+ *
+ *  @return The number of items
+ */
+- (NSInteger)coordinator:(SPXDataCoordinator *)coordinator numberOfItemsInSection:(NSInteger)section withProposedCount:(NSInteger)numberOfItems;
+
+
+
+/**
+ *  Returns the object for the specified indexPath. This is usually not required unless you implement one or more of the other dataSource methods above
+ *
+ *  @param coordinator The coordinator owning this dataSource
+ *  @param indexPath   The proposed indexPath
+ *
+ *  @return The object 
+ */
+- (id)coordinator:(SPXDataCoordinator *)coordinator objectForIndexPath:(NSIndexPath *)indexPath;
+
+
+
+@end
+
 

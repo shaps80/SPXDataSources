@@ -28,8 +28,97 @@
 #import "SPXDataView.h"
 #import "UITableView+SPXDataViewAdditions.h"
 #import "UICollectionView+SPXDataViewAdditions.h"
+#import "SPXDefines.h"
 
 NSString * const SPXDataViewViewReuseIdentifier = @"SPXDataViewViewReuseIdentifier";
+
+@interface SPXDataCoordinatorChanges : NSObject
+
+@property (nonatomic, strong) NSHashTable *sectionInserts;
+@property (nonatomic, strong) NSHashTable *sectionDeletes;
+
+@property (nonatomic, strong) NSHashTable *itemInserts;
+@property (nonatomic, strong) NSHashTable *itemUpdates;
+@property (nonatomic, strong) NSHashTable *itemDeletes;
+@property (nonatomic, strong) NSHashTable *itemMoves;
+
+@end
+
+@implementation SPXDataCoordinatorChanges
+
+- (instancetype)init
+{
+  self = [super init];
+  SPXAssertTrueOrReturnNil(self);
+  
+  _sectionInserts = [NSHashTable new];
+  _sectionDeletes = [NSHashTable new];
+  _itemInserts = [NSHashTable new];
+  _itemUpdates = [NSHashTable new];
+  _itemMoves = [NSHashTable new];
+  _itemDeletes = [NSHashTable new];
+  
+  return self;
+}
+
+- (void)insertSectionWithBlock:(void (^)())block
+{
+  [self.sectionInserts addObject:block];
+}
+
+- (void)deleteSectionWithBlock:(void (^)())block
+{
+  [self.sectionDeletes addObject:block];
+}
+
+- (void)insertWithBlock:(void (^)())block
+{
+  [self.itemInserts addObject:block];
+}
+
+- (void)updateWithBlock:(void (^)())block
+{
+  [self.itemUpdates addObject:block];
+}
+
+- (void)moveWithBlock:(void (^)())block
+{
+  [self.itemMoves addObject:block];
+}
+
+- (void)deleteWithBlock:(void (^)())block
+{
+  [self.itemDeletes addObject:block];
+}
+
+- (void)processChanges
+{
+  for (void (^changes)() in self.sectionDeletes) {
+    changes();
+  }
+  
+  for (void (^changes)() in self.sectionInserts) {
+    changes();
+  }
+  
+  for (void (^changes)() in self.itemDeletes) {
+    changes();
+  }
+  
+  for (void (^changes)() in self.itemInserts) {
+    changes();
+  }
+  
+  for (void (^changes)() in self.itemUpdates) {
+    changes();
+  }
+  
+  for (void (^changes)() in self.itemMoves) {
+    changes();
+  }
+}
+
+@end
 
 
 @interface SPXDataCoordinator () <SPXDataProviderDelegate>
@@ -37,6 +126,7 @@ NSString * const SPXDataViewViewReuseIdentifier = @"SPXDataViewViewReuseIdentifi
 @property (nonatomic, weak) id <SPXDataView> dataView;
 @property (nonatomic, strong) id <SPXDataProvider> dataProvider;
 @property (nonatomic, assign) BOOL sectionsDidChange;
+@property (nonatomic, strong) SPXDataCoordinatorChanges *changes;
 
 @end
 
@@ -56,20 +146,19 @@ NSString * const SPXDataViewViewReuseIdentifier = @"SPXDataViewViewReuseIdentifi
 - (void)dataProviderWillUpdate:(id<SPXDataProvider>)provider
 {
   self.sectionsDidChange = NO;
-  
-  if ([self.dataView isKindOfClass:[UITableView class]]) {
-    [((UITableView *)self.dataView) beginUpdates];
-  }
+  self.changes = [SPXDataCoordinatorChanges new];
 }
 
 - (void)dataProvider:(id<SPXDataProvider>)provider didChangeSection:(SPXDataProviderSectionInfo *)sectionInfo atIndex:(NSUInteger)sectionIndex forChangeType:(SPXDataProviderChangeType)type
 {
   switch (type) {
-    case SPXDataProviderChangeTypeInsert:
-      [self.dataView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+    case SPXDataProviderChangeTypeInsert: {
+      [self.changes insertSectionWithBlock:^{ [self.dataView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]]; }];
+    }
       break;
-    case SPXDataProviderChangeTypeDelete:
-      [self.dataView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+    case SPXDataProviderChangeTypeDelete: {
+      [self.changes deleteSectionWithBlock:^{ [self.dataView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]]; }];
+    }
       break;
     default:
       break; // do nothing
@@ -81,26 +170,32 @@ NSString * const SPXDataViewViewReuseIdentifier = @"SPXDataViewViewReuseIdentifi
 - (void)dataProvider:(id<SPXDataProvider>)provider didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(SPXDataProviderChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
 {
   switch (type) {
-    case SPXDataProviderChangeTypeInsert:
-      [self.dataView insertItemsAtIndexPaths:@[ newIndexPath ]];
+    case SPXDataProviderChangeTypeInsert: {
+      [self.changes insertWithBlock:^{ [self.dataView insertItemsAtIndexPaths:@[ newIndexPath ]]; }];
+    }
       break;
-    case SPXDataProviderChangeTypeUpdate:
-      [self.dataView reloadItemsAtIndexPaths:@[ indexPath ]];
+    case SPXDataProviderChangeTypeUpdate: {
+      [self.changes insertWithBlock:^{ [self.dataView reloadItemsAtIndexPaths:@[ indexPath ]]; }];
+    }
       break;
-    case SPXDataProviderChangeTypeMove:
-      [self.dataView moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
+    case SPXDataProviderChangeTypeMove: {
+      [self.changes insertWithBlock:^{ [self.dataView moveItemAtIndexPath:indexPath toIndexPath:newIndexPath]; }];
+    }
       break;
-    case SPXDataProviderChangeTypeDelete:
-      [self.dataView deleteItemsAtIndexPaths:@[ indexPath ]];
+    case SPXDataProviderChangeTypeDelete: {
+      [self.changes insertWithBlock:^{ [self.dataView deleteItemsAtIndexPaths:@[ indexPath ]]; }];
+    }
       break;
   }
 }
 
 - (void)dataProviderDidUpdate:(id<SPXDataProvider>)provider
 {
-  if ([self.dataView isKindOfClass:[UITableView class]]) {
-    [((UITableView *)self.dataView) endUpdates];
-  }
+  __weak typeof(self) weakInstance = self;
+
+  [self.dataView performBatchUpdates:^{
+    [weakInstance.changes processChanges];
+  }];
   
   if ([self.delegate respondsToSelector:@selector(coordinatorDidUpdate:)]) {
     [self.delegate coordinatorDidUpdate:self];

@@ -305,4 +305,10 @@ typedef void (^SPXCommitEditingStyleForItemAtIndexPathBlock)(id <SPXDataView> da
 - (id)dequeueReusableCellWithReuseIdentifier:(NSString *)identifier forIndexPath:(NSIndexPath*)indexPath;
 
 
+/**
+ *  Forces a reload of the view's data
+ */
+- (void)reloadData;
+
+
 @end
